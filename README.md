@@ -1,16 +1,14 @@
-# text_to_image_gen
+# Text To Image Generator
 
-A new Flutter project.
+TexFusion AI app created by flutter framework and it is a new AI art generation tool that can create amazing images from just text prompt. TexFusion AI can also make variations of your existing image. It uses brain fusion api to get get 3d render images.
 
-## Getting Started
+## Features
+- Generate Images from Text
+- High Quality images
+- Unlimited Response
+- Render 3D images
 
-This project is a starting point for a Flutter application.
+## How it work !
+- Make sure you enter more descriptive prompt. As this is kind of new api, it produces HD image with less descriptive prompt. So, make sure you describe the image correctly that you want as output.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots
