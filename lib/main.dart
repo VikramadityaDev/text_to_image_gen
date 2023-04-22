@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 /// The [main] function is the entry point of the application
 void main() {
@@ -64,11 +65,52 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Colors.deepPurple.shade50,
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.deepPurple.shade400),
         backgroundColor: Colors.transparent,
         title: Text('Imagination Generator',
             style: TextStyle(color: Colors.deepPurple.shade400)),
         elevation: 0,
         centerTitle: true,
+      ),
+      drawer: Drawer(
+        child: Container(
+          color: Colors.deepPurple.shade50,
+          child: ListView(
+            children: [
+              Container(
+                color: Colors.deepPurple.shade50,
+                child: DrawerHeader(
+                  child: Center(
+                      child: Text(
+                    "TexFusion AI App",
+                    style: TextStyle(
+                        fontSize: 18, color: Colors.deepPurple.shade400),
+                  )),
+                ),
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.source_rounded,
+                  color: Colors.deepPurple.shade800,
+                ),
+                title: Text(
+                  "Source Code",
+                  style: TextStyle(
+                      fontSize: 16, color: Colors.deepPurple.shade400),
+                ),
+                onTap: () async {
+                  final Uri url =
+                  Uri.parse('https://github.com/VikramadityaDev/text_to_image_gen/');
+
+                  if (!await launchUrl(url,
+                      mode: LaunchMode.externalApplication)) {
+                    throw Exception('Could not launch $url');
+                  }
+                },
+              ),
+            ],
+          ),
+        ),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -123,7 +165,8 @@ class _HomePageState extends State<HomePage> {
                               );
                             } else if (snapshot.hasError) {
                               // If an error occurred while getting the image data, display an error message.
-                              return Center(child: Text('Error: ${snapshot.error}'));
+                              return Center(
+                                  child: Text('Error: ${snapshot.error}'));
                             } else if (snapshot.hasData) {
                               // If the image data is available, display the image using Image.memory().
                               return Image.memory(snapshot.data!);
@@ -212,7 +255,11 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomNavigationBar: const Padding(
         padding: EdgeInsets.only(bottom: 8),
-        child: Text("Made With Love ❤️ Vikramaditya", textAlign: TextAlign.center, style: TextStyle(fontSize: 12),),
+        child: Text(
+          "Made With Love ❤️ Vikramaditya",
+          textAlign: TextAlign.center,
+          style: TextStyle(fontSize: 12),
+        ),
       ),
     );
   }
