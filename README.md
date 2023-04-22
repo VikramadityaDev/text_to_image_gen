@@ -1,4 +1,4 @@
-# text_to_image_gen
+# Text To Image Generator
 
 A new Flutter project.
 
