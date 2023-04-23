@@ -101,7 +101,25 @@ class _HomePageState extends State<HomePage> {
                 onTap: () async {
                   final Uri url =
                   Uri.parse('https://github.com/VikramadityaDev/text_to_image_gen/');
-
+                  if (!await launchUrl(url,
+                      mode: LaunchMode.externalApplication)) {
+                    throw Exception('Could not launch $url');
+                  }
+                },
+              ),
+              ListTile(
+                leading: Icon(
+                  Icons.update,
+                  color: Colors.deepPurple.shade800,
+                ),
+                title: Text(
+                  "Check for update",
+                  style: TextStyle(
+                      fontSize: 16, color: Colors.deepPurple.shade400),
+                ),
+                onTap: () async {
+                  final Uri url =
+                  Uri.parse('https://telegram.me/vikimediaofficial/');
                   if (!await launchUrl(url,
                       mode: LaunchMode.externalApplication)) {
                     throw Exception('Could not launch $url');
@@ -256,7 +274,7 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: const Padding(
         padding: EdgeInsets.only(bottom: 8),
         child: Text(
-          "Made With Love ❤️ Vikramaditya",
+          "Made With Love ❤️ VikiMedia",
           textAlign: TextAlign.center,
           style: TextStyle(fontSize: 12),
         ),
