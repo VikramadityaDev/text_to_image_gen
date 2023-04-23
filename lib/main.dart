@@ -183,8 +183,8 @@ class _HomePageState extends State<HomePage> {
                               );
                             } else if (snapshot.hasError) {
                               // If an error occurred while getting the image data, display an error message.
-                              return Center(
-                                  child: Text('Error: ${snapshot.error}'));
+                              return const Center(
+                                  child: Text('Something went wrong. Please Re-generate.'));
                             } else if (snapshot.hasData) {
                               // If the image data is available, display the image using Image.memory().
                               return Image.memory(snapshot.data!);
