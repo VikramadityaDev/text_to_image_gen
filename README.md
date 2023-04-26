@@ -12,6 +12,7 @@ TexFusion AI app created by flutter framework and it is a new AI art generation 
 - High Quality images
 - Unlimited Response
 - Render 3D images
+- Download Image
 
 ## How it work !
 - Make sure you enter more descriptive prompt. As this is kind of new api, it produces HD image with less descriptive prompt. So, make sure you describe the image correctly that you want as output.
