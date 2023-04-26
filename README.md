@@ -20,19 +20,11 @@ TexFusion AI app created by flutter framework and it is a new AI art generation 
 ## Screenshots
 <Table>
     <tr>
-        <td width="50%">
-            <img src="https://github.com/VikramadityaDev/text_to_image_gen/blob/master/screenshots/Screenshot%201.png"/>
-        </td>
-        <td width="50%">
-            <img src="https://github.com/VikramadityaDev/text_to_image_gen/blob/master/screenshots/Screenshot%202.png"/>
-        </td>
+        <td><img src="screenshots/Screenshot 1.png" width=300/></td>
+        <td><img src="screenshots/Screenshot 2.png" width=300/></td>
     </tr>
     <tr>
-        <td width="50%">
-            <img src="https://github.com/VikramadityaDev/text_to_image_gen/blob/master/screenshots/Screenshot%203.png"/>
-        </td>
-        <td width="50%">
-            <img src="https://github.com/VikramadityaDev/text_to_image_gen/blob/master/screenshots/Screenshot%204.png"/>
-        </td>
+        <td><img src="screenshots/Screenshot 3.png" width=300/></td>
+        <td><img src="screenshots/Screenshot 4.png" width=300/></td>
     </tr>
 </Table>
