@@ -11,18 +11,27 @@ class _AboutPageState extends State<AboutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.deepPurple.shade50,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.deepPurple.shade400),
+        iconTheme: IconThemeData(color: Theme.of(context).colorScheme.secondary,),
         backgroundColor: Colors.transparent,
         title: RichText(
           text: TextSpan(
               text: 'About ',
-              style: TextStyle(color: Colors.amber.shade900, fontWeight: FontWeight.w500, fontSize: 18),
+              style: TextStyle(
+                  color: Colors.amber.shade900,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                fontFamily: 'Aesthetic',
+              ),
               children: [
                 TextSpan(
                   text: 'TexFusion',
-                  style: TextStyle(color: Colors.deepPurple.shade500, fontWeight: FontWeight.w500, fontSize: 18),
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    fontFamily: 'Aesthetic',
+                  ),
                 ),
               ]
           ),
