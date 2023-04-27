@@ -5,10 +5,11 @@ import 'package:brain_fusion/brain_fusion.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:lottie/lottie.dart';
 import 'package:text_to_image_gen/Pages/about_page.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:text_to_image_gen/widgets/custom_drawer.dart';
 import 'package:flutter/rendering.dart';
 
 class HomePage extends StatefulWidget {
@@ -22,6 +23,7 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _queryController = TextEditingController();
 
   final AI _ai = AI();
+  Uint8List? _generatedImage;
 
   Future<Uint8List> _generate(String query) async {
     Uint8List image = await _ai.runAI(query, AIStyle.render3D);
@@ -42,133 +44,55 @@ class _HomePageState extends State<HomePage> {
   }
 
   var scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      backgroundColor: Colors.deepPurple.shade50,
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.deepPurple.shade400),
+        iconTheme:
+            IconThemeData(color: Theme.of(context).colorScheme.secondary),
         backgroundColor: Colors.transparent,
         title: RichText(
           text: TextSpan(
-              text: 'Tex',
-              style: TextStyle(color: Colors.amber.shade900, fontWeight: FontWeight.w500, fontSize: 18),
-              children: [
-                TextSpan(
-                  text: 'Fusion',
-                  style: TextStyle(color: Colors.deepPurple.shade500, fontWeight: FontWeight.w500, fontSize: 18),
-                )
-              ]
+            text: 'Tex',
+            style: TextStyle(
+                color: Colors.amber.shade900,
+                fontWeight: FontWeight.bold,
+                fontSize: 18,
+                fontFamily: 'Aesthetic'),
+            children: [
+              TextSpan(
+                text: 'Fusion',
+                style: TextStyle(
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    fontFamily: 'Aesthetic'),
+              )
+            ],
           ),
         ),
         elevation: 0,
         centerTitle: true,
         leading: InkWell(
-          onTap: (){
+          onTap: () {
             scaffoldKey.currentState?.openDrawer();
           },
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Lottie.asset(
-              'assets/animations/me.json',
-              repeat: true,
-              reverse: true,
-              animate: true,
-            ),
-          ),
+          child: const Icon(Iconsax.element_plus),
         ),
         actions: [
           InkWell(
-            onTap: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const AboutPage()));
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const AboutPage()));
             },
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Lottie.asset(
-                'assets/animations/set.json',
-                repeat: true,
-                reverse: true,
-                animate: true,
-              ),
-            ),
+            child: const Padding(
+                padding: EdgeInsets.all(12), child: Icon(Iconsax.setting_2)),
           ),
         ],
       ),
-      drawer: Drawer(
-        child: Container(
-          color: Colors.deepPurple.shade50,
-          child: Column(
-            children: [
-              Container(
-                color: Colors.deepPurple.shade50,
-                child: DrawerHeader(
-                  child: Center(
-                      child: Text(
-                        "TexFusion AI App",
-                        style: TextStyle(
-                            fontSize: 18, color: Colors.deepPurple.shade400),
-                      ),
-                  ),
-                ),
-              ),
-              ListTile(
-                leading: const Icon(
-                  Icons.source_rounded,
-                  color: Colors.black54,
-                ),
-                title: Text(
-                  "Source Code",
-                  style: TextStyle(
-                      fontSize: 16, color: Colors.deepPurple.shade400),
-                ),
-                onTap: () async {
-                  final Uri url = Uri.parse(
-                      'https://github.com/VikramadityaDev/text_to_image_gen/');
-                  if (!await launchUrl(url,
-                      mode: LaunchMode.externalApplication)) {
-                    throw Exception('Could not launch $url');
-                  }
-                },
-              ),
-              ListTile(
-                leading: const Icon(
-                  Icons.update,
-                  color: Colors.black54,
-                ),
-                title: Text(
-                  "Check for update",
-                  style: TextStyle(
-                      fontSize: 16, color: Colors.deepPurple.shade400),
-                ),
-                onTap: () async {
-                  final Uri url =
-                  Uri.parse('https://telegram.me/vikimediaofficial/');
-                  if (!await launchUrl(url,
-                      mode: LaunchMode.externalApplication)) {
-                    throw Exception('Could not launch $url');
-                  }
-                },
-              ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(10),
-                  child: Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Text(
-                      'v1.0.2',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.deepPurple.shade400,
-                          fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      drawer: const CustomDrawer(),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -181,6 +105,10 @@ class _HomePageState extends State<HomePage> {
             Padding(
               padding: const EdgeInsets.all(6.0),
               child: TextField(
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Theme.of(context).colorScheme.secondary,
+                    ),
                 keyboardType: TextInputType.multiline,
                 minLines: 1,
                 maxLines: 10,
@@ -191,14 +119,14 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide(
                       width: 1.5,
-                      color: Colors.deepPurple.shade400,
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
                   focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(8),
                     borderSide: BorderSide(
                       width: 1.5,
-                      color: Colors.deepPurple.shade400,
+                      color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
                 ),
@@ -211,49 +139,55 @@ class _HomePageState extends State<HomePage> {
                 width: MediaQuery.of(context).size.width,
                 child: run
                     ? FutureBuilder<Uint8List>(
-                  future: _generate(_queryController.text),
-                  builder: (context, snapshot) {
-                    if (snapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return Padding(
-                        padding: const EdgeInsets.all(120.0),
-                        child: Lottie.asset(
-                          'assets/animations/loading.json',
-                          repeat: true,
-                          reverse: true,
-                          animate: true,
-                        ),
-                      );
-                    } else if (snapshot.hasError) {
-                      return const Center(
+                        future: _generatedImage != null ? Future.value(_generatedImage) : _generate(_queryController.text),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return Padding(
+                              padding: const EdgeInsets.all(120.0),
+                              child: Lottie.asset(
+                                'assets/animations/loading.json',
+                                repeat: true,
+                                reverse: true,
+                                animate: true,
+                              ),
+                            );
+                          } else if (snapshot.hasError) {
+                            return Center(
+                              child: Text(
+                                'Something went wrong. Please Re-generate.',
+                                style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.red.shade400,
+                                    fontFamily: 'Nexa'),
+                              ),
+                            );
+                          } else if (snapshot.hasData) {
+                            // If the image was just generated, store it in the _generatedImage variable
+                            _generatedImage ??= snapshot.data;
+                            return RepaintBoundary(
+                              key: _globalKey,
+                              child: InkWell(
+                                onTap: () {
+                                  _saveScreen();
+                                },
+                                child: Image.memory(snapshot.data!),
+                              ),
+                            );
+                          } else {
+                            return Container();
+                          }
+                        },
+                      )
+                    : Center(
                         child: Text(
-                          'Something went wrong. Please Re-generate.',
+                          'See Magic Here 🪄',
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Theme.of(context).colorScheme.secondary,
+                              fontFamily: 'Nexa'),
                         ),
-                      );
-                    } else if (snapshot.hasData) {
-                      return RepaintBoundary(
-                        key: _globalKey,
-                        child: InkWell(
-                          onTap: () {
-                            _saveScreen();
-                          },
-                          child: Image.memory(snapshot.data!),
-                        ),
-                      );
-                    } else {
-                      return Container();
-                    }
-                  },
-                )
-                    : const Center(
-                  child: Text(
-                    'See Magic Here 🪄',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
+                      ),
               ),
             ),
             SizedBox(
@@ -262,10 +196,10 @@ class _HomePageState extends State<HomePage> {
             const Text(
               'Click the image to save in Gallery.',
               softWrap: true,
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(
-              height: 5,
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Nexa'),
             ),
             const SizedBox(
               height: 15,
@@ -278,6 +212,7 @@ class _HomePageState extends State<HomePage> {
                   if (newQuery.isNotEmpty) {
                     setState(() {
                       query = newQuery;
+                      _generatedImage = null; // Clear the cached image
                       run = true;
                     });
                   } else {
@@ -323,7 +258,11 @@ class _HomePageState extends State<HomePage> {
                     child: const Text(
                       'Generate',
                       textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 18),
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'Nexa',
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ),
@@ -332,16 +271,22 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      bottomNavigationBar: const Padding(
-        padding: EdgeInsets.only(bottom: 8),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(bottom: 7),
         child: Text(
           "Made With Love ❤️ VikiMedia",
           textAlign: TextAlign.center,
-          style: TextStyle(fontSize: 12),
+          style: TextStyle(
+            fontSize: 11,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'NexaLight',
+            color: Theme.of(context).colorScheme.secondary,
+          ),
         ),
       ),
     );
   }
+
   _saveScreen() async {
     if (_isDownloading) {
       // Do nothing if a download is already in progress.
@@ -364,9 +309,10 @@ class _HomePageState extends State<HomePage> {
     );
     _isDownloading = true;
     RenderRepaintBoundary boundary =
-    _globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
+        _globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
     ui.Image image = await boundary.toImage(pixelRatio: 12);
-    ByteData? byteData = await (image.toByteData(format: ui.ImageByteFormat.png));
+    ByteData? byteData =
+        await (image.toByteData(format: ui.ImageByteFormat.png));
     if (byteData != null) {
       final result = await ImageGallerySaver.saveImage(
         byteData.buffer.asUint8List(),
