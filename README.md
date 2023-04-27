@@ -4,7 +4,7 @@ TexFusion AI app created by flutter framework and it is a new AI art generation 
 
 <Br>
 <p align="left">
-<a href="https://github.com/VikramadityaDev/text_to_image_gen/releases/download/v1.0.0/app-armeabi-v7a-release.apk"><img src="https://img.shields.io/github/downloads/VikramadityaDev/text_to_image_gen/total?color=g&label=Downloads&logo=android&logoColor=white&style=for-the-badge"></a>
+<a href="https://github.com/VikramadityaDev/text_to_image_gen/releases/download/v1.0.2/app-armeabi-v7a-release.apk"><img src="https://img.shields.io/github/downloads/VikramadityaDev/text_to_image_gen/total?color=g&label=Downloads&logo=android&logoColor=white&style=for-the-badge"></a>
 </p>
 
 ## Features
@@ -12,6 +12,7 @@ TexFusion AI app created by flutter framework and it is a new AI art generation 
 - High Quality images
 - Unlimited Response
 - Render 3D images
+- Download Image
 
 ## How it work !
 - Make sure you enter more descriptive prompt. As this is kind of new api, it produces HD image with less descriptive prompt. So, make sure you describe the image correctly that you want as output.
@@ -19,19 +20,11 @@ TexFusion AI app created by flutter framework and it is a new AI art generation 
 ## Screenshots
 <Table>
     <tr>
-        <td width="50%">
-            <img src="https://github.com/VikramadityaDev/text_to_image_gen/blob/master/screenshots/Screenshot%201.png"/>
-        </td>
-        <td width="50%">
-            <img src="https://github.com/VikramadityaDev/text_to_image_gen/blob/master/screenshots/Screenshot%202.png"/>
-        </td>
+        <td><img src="screenshots/Screenshot 1.png" width=300/></td>
+        <td><img src="screenshots/Screenshot 2.png" width=300/></td>
     </tr>
     <tr>
-        <td width="50%">
-            <img src="https://github.com/VikramadityaDev/text_to_image_gen/blob/master/screenshots/Screenshot%203.png"/>
-        </td>
-        <td width="50%">
-            <img src="https://github.com/VikramadityaDev/text_to_image_gen/blob/master/screenshots/Screenshot%204.png"/>
-        </td>
+        <td><img src="screenshots/Screenshot 3.png" width=300/></td>
+        <td><img src="screenshots/Screenshot 4.png" width=300/></td>
     </tr>
 </Table>
