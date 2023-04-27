@@ -24,11 +24,27 @@ Fork the repo 🔥 and don't forget to star the repo 🌟
 
 ## Screenshots
 <Table>
+    <tr>                   
+        <th>Home Screen View</th>
+        <th>Drawer Screen View</th>
+        <th>Accent Color Dialog View</th>
+        <th>Theme Mode Dialog View</th>
+    </tr>
+    <tr>
+        <td><img src="screenshots/Screenshot 8.png" width=300/></td>
+        <td><img src="screenshots/Screenshot 5.png" width=300/></td>
+        <td><img src="screenshots/Screenshot 6.png" width=300/></td>
+        <td><img src="screenshots/Screenshot 7.png" width=300/></td>
+    </tr>
+    <tr>                   
+        <th>Prompt Example 1</th>
+        <th>Prompt Example 2</th>
+        <th>Prompt Example 3</th>
+        <th>Prompt Example 4</th>
+    </tr>
     <tr>
         <td><img src="screenshots/Screenshot 1.png" width=300/></td>
         <td><img src="screenshots/Screenshot 2.png" width=300/></td>
-    </tr>
-    <tr>
         <td><img src="screenshots/Screenshot 3.png" width=300/></td>
         <td><img src="screenshots/Screenshot 4.png" width=300/></td>
     </tr>
