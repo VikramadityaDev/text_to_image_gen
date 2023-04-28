@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:lottie/lottie.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:text_to_image_gen/Pages/about_page.dart';
 import 'package:text_to_image_gen/widgets/custom_drawer.dart';
 import 'package:flutter/rendering.dart';
@@ -21,12 +22,157 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final TextEditingController _queryController = TextEditingController();
-
+  AIStyle _selectedStyle = AIStyle.render3D;
   final AI _ai = AI();
   Uint8List? _generatedImage;
+  final _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSelectedStyle();
+    _focusNode.addListener(() {
+      if (!_focusNode.hasFocus) {
+        // Hide the keyboard when the user taps outside of the TextField
+        FocusScope.of(context).requestFocus(FocusNode());
+      }
+    });
+  }
+
+  void _loadSelectedStyle() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? selectedStyleString = prefs.getString('selectedStyle');
+    if (selectedStyleString != null) {
+      setState(() {
+        _selectedStyle = AIStyle.values[int.parse(selectedStyleString)];
+      });
+    }
+  }
+
+  void _saveSelectedStyle() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('selectedStyle', _selectedStyle.index.toString());
+  }
+
+  Future<void> _showStyleSelectorDialog() async {
+    AIStyle? newStyle = await showDialog<AIStyle>(
+      context: context,
+      builder: (BuildContext context) {
+        return SimpleDialog(
+          title: const Text('Select a style'),
+          children: <Widget>[
+            RadioListTile<AIStyle>(
+              title: const Text('No style'),
+              value: AIStyle.noStyle,
+              groupValue: _selectedStyle,
+              onChanged: (AIStyle? value) {
+                Navigator.pop(context, value);
+              },
+            ),
+            RadioListTile<AIStyle>(
+              title: const Text('3D render'),
+              value: AIStyle.render3D,
+              groupValue: _selectedStyle,
+              onChanged: (AIStyle? value) {
+                Navigator.pop(context, value);
+              },
+            ),
+            RadioListTile<AIStyle>(
+              title: const Text('Anime'),
+              value: AIStyle.anime,
+              groupValue: _selectedStyle,
+              onChanged: (AIStyle? value) {
+                Navigator.pop(context, value);
+              },
+            ),
+            RadioListTile<AIStyle>(
+              title: const Text('More Detailed'),
+              value: AIStyle.moreDetails,
+              groupValue: _selectedStyle,
+              onChanged: (AIStyle? value) {
+                Navigator.pop(context, value);
+              },
+            ),
+            RadioListTile<AIStyle>(
+              title: const Text('CyberPunk'),
+              value: AIStyle.cyberPunk,
+              groupValue: _selectedStyle,
+              onChanged: (AIStyle? value) {
+                Navigator.pop(context, value);
+              },
+            ),
+            RadioListTile<AIStyle>(
+              title: const Text('Cartoon'),
+              value: AIStyle.cartoon,
+              groupValue: _selectedStyle,
+              onChanged: (AIStyle? value) {
+                Navigator.pop(context, value);
+              },
+            ),
+            RadioListTile<AIStyle>(
+              title: const Text('Picasso painter'),
+              value: AIStyle.picassoPainter,
+              groupValue: _selectedStyle,
+              onChanged: (AIStyle? value) {
+                Navigator.pop(context, value);
+              },
+            ),
+            RadioListTile<AIStyle>(
+              title: const Text('Oil painting'),
+              value: AIStyle.oilPainting,
+              groupValue: _selectedStyle,
+              onChanged: (AIStyle? value) {
+                Navigator.pop(context, value);
+              },
+            ),
+            RadioListTile<AIStyle>(
+              title: const Text('Digital painting'),
+              value: AIStyle.digitalPainting,
+              groupValue: _selectedStyle,
+              onChanged: (AIStyle? value) {
+                Navigator.pop(context, value);
+              },
+            ),
+            RadioListTile<AIStyle>(
+              title: const Text('Portrait photo'),
+              value: AIStyle.portraitPhoto,
+              groupValue: _selectedStyle,
+              onChanged: (AIStyle? value) {
+                Navigator.pop(context, value);
+              },
+            ),
+            RadioListTile<AIStyle>(
+              title: const Text('Picasso painter'),
+              value: AIStyle.picassoPainter,
+              groupValue: _selectedStyle,
+              onChanged: (AIStyle? value) {
+                Navigator.pop(context, value);
+              },
+            ),
+            RadioListTile<AIStyle>(
+              title: const Text('Pencil drawing'),
+              value: AIStyle.pencilDrawing,
+              groupValue: _selectedStyle,
+              onChanged: (AIStyle? value) {
+                Navigator.pop(context, value);
+              },
+            ),
+          ],
+        );
+      },
+    );
+
+    if (newStyle != null) {
+      setState(() {
+        _selectedStyle = newStyle;
+      });
+      _saveSelectedStyle();
+    }
+  }
+
 
   Future<Uint8List> _generate(String query) async {
-    Uint8List image = await _ai.runAI(query, AIStyle.render3D);
+    Uint8List image = await _ai.runAI(query, _selectedStyle);
     return image;
   }
 
@@ -102,31 +248,37 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 10,
             ),
-            Padding(
-              padding: const EdgeInsets.all(6.0),
-              child: TextField(
-                style: TextStyle(
-                    fontSize: 16,
-                    color: Theme.of(context).colorScheme.secondary,
-                    ),
-                keyboardType: TextInputType.multiline,
-                minLines: 1,
-                maxLines: 10,
-                controller: _queryController,
-                decoration: InputDecoration(
-                  hintText: 'Enter your imagination...',
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(
-                      width: 1.5,
+            GestureDetector(
+              onTap: (){
+                FocusScope.of(context).requestFocus(FocusNode());
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(6.0),
+                child: TextField(
+                  focusNode: _focusNode,
+                  style: TextStyle(
+                      fontSize: 16,
                       color: Theme.of(context).colorScheme.secondary,
+                      ),
+                  keyboardType: TextInputType.multiline,
+                  minLines: 1,
+                  maxLines: 10,
+                  controller: _queryController,
+                  decoration: InputDecoration(
+                    hintText: 'Enter your imagination...',
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(
+                        width: 1.5,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
                     ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                    borderSide: BorderSide(
-                      width: 1.5,
-                      color: Theme.of(context).colorScheme.secondary,
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: BorderSide(
+                        width: 1.5,
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
                     ),
                   ),
                 ),
@@ -191,7 +343,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.width / 5.5,
+              height: MediaQuery.of(context).size.width / 11.5,
             ),
             const Text(
               'Click the image to save in Gallery.',
@@ -201,8 +353,18 @@ class _HomePageState extends State<HomePage> {
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Nexa'),
             ),
+            TextButton.icon(
+              icon: const Icon(Iconsax.colors_square),
+              label: Text('Select Style',
+                style: TextStyle(
+                    fontSize: 16,
+                    color: Theme.of(context).colorScheme.secondary,
+                    fontFamily: 'Nexa'),
+              ),
+              onPressed: () => _showStyleSelectorDialog(),
+            ),
             const SizedBox(
-              height: 15,
+              height: 5,
             ),
             Padding(
               padding: const EdgeInsets.only(left: 80, right: 80),
