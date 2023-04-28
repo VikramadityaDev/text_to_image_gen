@@ -11,7 +11,7 @@ TexFusion AI app created by flutter framework and it is a new AI art generation 
 - Generate Images from Text
 - High Quality images
 - Unlimited Response
-- Render 3D images
+- Added 12 Styles including 3D render.
 - Download Image
 - Accent Color Mode
 - Theme Mode
