@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class AboutPage extends StatefulWidget {
+class AboutPage extends StatelessWidget {
   const AboutPage({Key? key}) : super(key: key);
 
-  @override
-  State<AboutPage> createState() => _AboutPageState();
-}
-
-class _AboutPageState extends State<AboutPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +16,7 @@ class _AboutPageState extends State<AboutPage> {
           text: TextSpan(
               text: 'About ',
               style: TextStyle(
-                color: Colors.amber.shade900,
+                color: Theme.of(context).colorScheme.primary,
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
                 fontFamily: 'Aesthetic',
@@ -146,26 +141,32 @@ class _AboutPageState extends State<AboutPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 ElevatedButton(
-                    onPressed: () async {
-                      final Uri url = Uri.parse(
-                          'https://github.com/VikramadityaDev/');
-                      if (!await launchUrl(url,
-                          mode: LaunchMode.externalApplication)) {
-                        throw Exception('Could not launch $url');
-                      }
-                    },
-                    child: const Text('Github', style: TextStyle(fontSize: 15, fontFamily: 'Nexa'),),
-                ),
-                ElevatedButton(
                   onPressed: () async {
-                    final Uri url = Uri.parse(
-                        'https://telegram.me/Aditya@1190/');
+                    final Uri url =
+                    Uri.parse('https://github.com/VikramadityaDev/');
                     if (!await launchUrl(url,
                         mode: LaunchMode.externalApplication)) {
                       throw Exception('Could not launch $url');
                     }
                   },
-                  child: const Text('Telegram', style: TextStyle(fontSize: 15, fontFamily: 'Nexa'),),
+                  child: const Text(
+                    'Github',
+                    style: TextStyle(fontSize: 15, fontFamily: 'Nexa'),
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    final Uri url =
+                    Uri.parse('https://telegram.me/Aditya@1190/');
+                    if (!await launchUrl(url,
+                        mode: LaunchMode.externalApplication)) {
+                      throw Exception('Could not launch $url');
+                    }
+                  },
+                  child: const Text(
+                    'Telegram',
+                    style: TextStyle(fontSize: 15, fontFamily: 'Nexa'),
+                  ),
                 ),
               ],
             ),
@@ -178,7 +179,7 @@ class _AboutPageState extends State<AboutPage> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(bottom: 7),
         child: Text(
-          "Made With Love ❤️ VikiMedia",
+          "Made By  VikiMedia &️ DJ-Yacine",
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 11,

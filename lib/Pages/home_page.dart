@@ -1,17 +1,14 @@
-import 'dart:async';
-import 'dart:ui' as ui;
+import 'dart:io' show Platform;
 
 import 'package:brain_fusion/brain_fusion.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:lottie/lottie.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:text_to_image_gen/Pages/about_page.dart';
-import 'package:text_to_image_gen/widgets/custom_drawer.dart';
-import 'package:flutter/rendering.dart';
+import 'package:text_to_image_gen/Pages/settings_page.dart';
+import 'package:text_to_image_gen/bloc/image_cubit.dart';
+
+import '../widgets/custom_drawer.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,474 +18,359 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final TextEditingController _queryController = TextEditingController();
-  AIStyle _selectedStyle = AIStyle.render3D;
-  final AI _ai = AI();
-  Uint8List? _generatedImage;
-  final _focusNode = FocusNode();
+  late ImageCubit _imageCubit;
+  final TextEditingController _textEditingController = TextEditingController();
+  var scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final Map<AIStyle, String> styleDisplayText = {
+    AIStyle.noStyle: 'No style',
+    AIStyle.render3D: '3D render',
+    AIStyle.anime: 'Anime',
+    AIStyle.moreDetails: 'More Detailed',
+    AIStyle.cyberPunk: 'CyberPunk',
+    AIStyle.cartoon: 'Cartoon',
+    AIStyle.picassoPainter: 'Picasso painter',
+    AIStyle.oilPainting: 'Oil painting',
+    AIStyle.digitalPainting: 'Digital painting',
+    AIStyle.portraitPhoto: 'Portrait photo',
+    AIStyle.pencilDrawing: 'Pencil drawing',
+  };
 
   @override
   void initState() {
     super.initState();
-    _loadSelectedStyle();
-    _focusNode.addListener(() {
-      if (!_focusNode.hasFocus) {
-        // Hide the keyboard when the user taps outside of the TextField
-        FocusScope.of(context).requestFocus(FocusNode());
-      }
-    });
+    _imageCubit = ImageCubit();
   }
 
-  void _loadSelectedStyle() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? selectedStyleString = prefs.getString('selectedStyle');
-    if (selectedStyleString != null) {
-      setState(() {
-        _selectedStyle = AIStyle.values[int.parse(selectedStyleString)];
-      });
-    }
+  @override
+  void dispose() {
+    _imageCubit.close();
+    _textEditingController.dispose();
+    super.dispose();
   }
 
-  void _saveSelectedStyle() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setString('selectedStyle', _selectedStyle.index.toString());
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => _imageCubit,
+      child: Scaffold(
+        key: scaffoldKey,
+        drawer: const CustomDrawer(),
+        appBar: AppBar(
+          actions: [
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SettingsPage(),
+                  ),
+                );
+              },
+              child: Padding(
+                  padding: const EdgeInsets.all(12), child: Icon(Iconsax.setting_2 ,
+                color: Theme.of(context).colorScheme.primary,
+              )),
+            ),
+          ],
+          leading: InkWell(
+            onTap: () {
+              scaffoldKey.currentState?.openDrawer();
+            },
+            child: Icon(
+              Iconsax.element_plus,
+              color: Theme.of(context).colorScheme.secondary,
+            ),
+          ),
+          title: RichText(
+            text: TextSpan(
+              text: 'Tex',
+              style: TextStyle(
+                  //color: Colors.amber.shade900,
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  fontFamily: 'Aesthetic'),
+              children: [
+                TextSpan(
+                  text: 'Fusion',
+                  style: TextStyle(
+                      color: Theme.of(context).colorScheme.secondary,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      fontFamily: 'Aesthetic'),
+                )
+              ],
+            ),
+          ),
+          centerTitle: true,
+          elevation: 0,
+        ),
+        body: Center(
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Column(
+              children: [
+                MediaQuery.of(context).size.height >
+                        MediaQuery.of(context).size.width
+                    ? Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: SizedBox(
+                          height: 140,
+                          child: Center(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.9,
+                                  child: TextField(
+                                    controller: _textEditingController,
+                                    decoration: InputDecoration(
+                                      hintText: "Enter Anything in Your Mind",
+                                      border: const OutlineInputBorder(),
+                                      suffixIcon: IconButton(
+                                        onPressed: () {
+                                          setState(() {
+                                            _textEditingController.clear();
+                                          });
+                                        },
+                                        icon: Padding(
+                                          padding: const EdgeInsets.all(10),
+                                          child: Icon(
+                                            Icons.clear,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .secondary,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    onChanged: (text) {
+                                      if (text.isEmpty) {
+                                        setState(() {
+                                          _textEditingController.clear();
+                                        });
+                                      }
+                                    },
+                                    onSubmitted: (query) {
+                                      if (query.isNotEmpty) {
+                                        setState(() {
+                                          _textEditingController.text = query;
+                                        });
+                                        _chooseStyle(
+                                            _textEditingController.text);
+                                      }
+                                    },
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(7),
+                                  ),
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.9,
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(7),
+                                        ),
+                                      ),
+                                    ),
+                                    onPressed: () {
+                                      if (_textEditingController
+                                          .text.isNotEmpty) {
+                                        _chooseStyle(
+                                            _textEditingController.text);
+                                      }
+                                    },
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(13),
+                                      child: Icon(
+                                        Icons.gesture,
+                                        size: 35,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.8,
+                                child: TextField(
+                                  controller: _textEditingController,
+                                  decoration: InputDecoration(
+                                    hintText: "Enter Anything in Your Mind",
+                                    border: const OutlineInputBorder(),
+                                    suffixIcon: IconButton(
+                                      onPressed: () {
+                                        setState(() {
+                                          _textEditingController.clear();
+                                        });
+                                      },
+                                      icon: Padding(
+                                        padding: const EdgeInsets.all(10),
+                                        child: Icon(
+                                          Icons.clear,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .secondary,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  onChanged: (text) {
+                                    if (text.isEmpty) {
+                                      setState(() {
+                                        _textEditingController.clear();
+                                      });
+                                    }
+                                  },
+                                  onSubmitted: (query) {
+                                    if (query.isNotEmpty) {
+                                      setState(() {
+                                        _textEditingController.text = query;
+                                      });
+                                      _chooseStyle(_textEditingController.text);
+                                    }
+                                  },
+                                ),
+                              ),
+                            ),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(7),
+                              ),
+                              width: MediaQuery.of(context).size.width * 0.15,
+                              child: ElevatedButton(
+                                style: ButtonStyle(
+                                  shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(7),
+                                    ),
+                                  ),
+                                ),
+                                onPressed: () {
+                                  if (_textEditingController.text.isNotEmpty) {
+                                    _chooseStyle(_textEditingController.text);
+                                  }
+                                },
+                                child: const Padding(
+                                  padding: EdgeInsets.all(13),
+                                  child: Icon(
+                                    Icons.gesture,
+                                    size: 35,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                BlocBuilder<ImageCubit, ImageState>(
+                  builder: (context, state) {
+                    if (state is ImageLoading) {
+                      return Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(50),
+                          child: Lottie.asset(
+                            'assets/animations/loading.json',
+                            frameRate: FrameRate(60),
+                            repeat: true,
+                            animate: true,
+                          ),
+                        ),
+                      );
+                    }
+                    if (state is ImageLoaded) {
+                      final image = state.image;
+                      return SizedBox(
+                        width: Platform.isAndroid
+                            ? MediaQuery.of(context).size.width
+                            : 500,
+                        child: FadeInImage(
+                          placeholder:
+                              const AssetImage('assets/images/Ai.webp'),
+                          image: MemoryImage(image),
+                          fit: BoxFit.contain,
+                        ),
+                      );
+                    }
+                    if (state is ImageError) {
+                      final error = state.error;
+                      return Center(
+                        child: Text(error),
+                      );
+                    }
+                    return Container();
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
-  Future<void> _showStyleSelectorDialog() async {
-    AIStyle? newStyle = await showDialog<AIStyle>(
+  void _chooseStyle(String query) async {
+    showDialog<AIStyle>(
       context: context,
       builder: (BuildContext context) {
         return SimpleDialog(
-          title: const Text('Select a style'),
+          title: const Text('Choose style for the image :'),
           children: <Widget>[
-            RadioListTile<AIStyle>(
-              title: const Text('No style'),
-              value: AIStyle.noStyle,
-              groupValue: _selectedStyle,
-              onChanged: (AIStyle? value) {
-                Navigator.pop(context, value);
-              },
-            ),
-            RadioListTile<AIStyle>(
-              title: const Text('3D render'),
-              value: AIStyle.render3D,
-              groupValue: _selectedStyle,
-              onChanged: (AIStyle? value) {
-                Navigator.pop(context, value);
-              },
-            ),
-            RadioListTile<AIStyle>(
-              title: const Text('Anime'),
-              value: AIStyle.anime,
-              groupValue: _selectedStyle,
-              onChanged: (AIStyle? value) {
-                Navigator.pop(context, value);
-              },
-            ),
-            RadioListTile<AIStyle>(
-              title: const Text('More Detailed'),
-              value: AIStyle.moreDetails,
-              groupValue: _selectedStyle,
-              onChanged: (AIStyle? value) {
-                Navigator.pop(context, value);
-              },
-            ),
-            RadioListTile<AIStyle>(
-              title: const Text('CyberPunk'),
-              value: AIStyle.cyberPunk,
-              groupValue: _selectedStyle,
-              onChanged: (AIStyle? value) {
-                Navigator.pop(context, value);
-              },
-            ),
-            RadioListTile<AIStyle>(
-              title: const Text('Cartoon'),
-              value: AIStyle.cartoon,
-              groupValue: _selectedStyle,
-              onChanged: (AIStyle? value) {
-                Navigator.pop(context, value);
-              },
-            ),
-            RadioListTile<AIStyle>(
-              title: const Text('Picasso painter'),
-              value: AIStyle.picassoPainter,
-              groupValue: _selectedStyle,
-              onChanged: (AIStyle? value) {
-                Navigator.pop(context, value);
-              },
-            ),
-            RadioListTile<AIStyle>(
-              title: const Text('Oil painting'),
-              value: AIStyle.oilPainting,
-              groupValue: _selectedStyle,
-              onChanged: (AIStyle? value) {
-                Navigator.pop(context, value);
-              },
-            ),
-            RadioListTile<AIStyle>(
-              title: const Text('Digital painting'),
-              value: AIStyle.digitalPainting,
-              groupValue: _selectedStyle,
-              onChanged: (AIStyle? value) {
-                Navigator.pop(context, value);
-              },
-            ),
-            RadioListTile<AIStyle>(
-              title: const Text('Portrait photo'),
-              value: AIStyle.portraitPhoto,
-              groupValue: _selectedStyle,
-              onChanged: (AIStyle? value) {
-                Navigator.pop(context, value);
-              },
-            ),
-            RadioListTile<AIStyle>(
-              title: const Text('Picasso painter'),
-              value: AIStyle.picassoPainter,
-              groupValue: _selectedStyle,
-              onChanged: (AIStyle? value) {
-                Navigator.pop(context, value);
-              },
-            ),
-            RadioListTile<AIStyle>(
-              title: const Text('Pencil drawing'),
-              value: AIStyle.pencilDrawing,
-              groupValue: _selectedStyle,
-              onChanged: (AIStyle? value) {
-                Navigator.pop(context, value);
-              },
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                spacing: 10.0,
+                runSpacing: 10.0,
+                children: styleDisplayText.entries.map((entry) {
+                  return ElevatedButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(7),
+                        ),
+                      ),
+                    ),
+                    onPressed: () {
+                      _imageCubit.generate(query, entry.key);
+                      Navigator.pop(context);
+                    },
+                    child: Text(
+                      entry.value,
+                      style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                      ),
+                    ),
+                  );
+                }).toList(),
+              ),
             ),
           ],
         );
       },
     );
-
-    if (newStyle != null) {
-      setState(() {
-        _selectedStyle = newStyle;
-      });
-      _saveSelectedStyle();
-    }
-  }
-
-
-  Future<Uint8List> _generate(String query) async {
-    Uint8List image = await _ai.runAI(query, _selectedStyle);
-    return image;
-  }
-
-  final GlobalKey _globalKey = GlobalKey();
-
-  bool _isDownloading = false;
-  bool _isDownloadInitiated = false;
-  bool run = false;
-  String query = "";
-
-  @override
-  void dispose() {
-    _queryController.dispose();
-    super.dispose();
-  }
-
-  var scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      appBar: AppBar(
-        iconTheme:
-            IconThemeData(color: Theme.of(context).colorScheme.secondary),
-        backgroundColor: Colors.transparent,
-        title: RichText(
-          text: TextSpan(
-            text: 'Tex',
-            style: TextStyle(
-                color: Colors.amber.shade900,
-                fontWeight: FontWeight.bold,
-                fontSize: 18,
-                fontFamily: 'Aesthetic'),
-            children: [
-              TextSpan(
-                text: 'Fusion',
-                style: TextStyle(
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    fontFamily: 'Aesthetic'),
-              )
-            ],
-          ),
-        ),
-        elevation: 0,
-        centerTitle: true,
-        leading: InkWell(
-          onTap: () {
-            scaffoldKey.currentState?.openDrawer();
-          },
-          child: const Icon(Iconsax.element_plus),
-        ),
-        actions: [
-          InkWell(
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const AboutPage()));
-            },
-            child: const Padding(
-                padding: EdgeInsets.all(12), child: Icon(Iconsax.setting_2)),
-          ),
-        ],
-      ),
-      drawer: const CustomDrawer(),
-      body: SingleChildScrollView(
-        physics: const BouncingScrollPhysics(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            const SizedBox(
-              height: 10,
-            ),
-            GestureDetector(
-              onTap: (){
-                FocusScope.of(context).requestFocus(FocusNode());
-              },
-              child: Padding(
-                padding: const EdgeInsets.all(6.0),
-                child: TextField(
-                  focusNode: _focusNode,
-                  style: TextStyle(
-                      fontSize: 16,
-                      color: Theme.of(context).colorScheme.secondary,
-                      ),
-                  keyboardType: TextInputType.multiline,
-                  minLines: 1,
-                  maxLines: 10,
-                  controller: _queryController,
-                  decoration: InputDecoration(
-                    hintText: 'Enter your imagination...',
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(
-                        width: 1.5,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      borderSide: BorderSide(
-                        width: 1.5,
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(5),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height / 1.9,
-                width: MediaQuery.of(context).size.width,
-                child: run
-                    ? FutureBuilder<Uint8List>(
-                        future: _generatedImage != null ? Future.value(_generatedImage) : _generate(_queryController.text),
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return Padding(
-                              padding: const EdgeInsets.all(120.0),
-                              child: Lottie.asset(
-                                'assets/animations/loading.json',
-                                repeat: true,
-                                reverse: true,
-                                animate: true,
-                              ),
-                            );
-                          } else if (snapshot.hasError) {
-                            return Center(
-                              child: Text(
-                                'Something went wrong. Please Re-generate.',
-                                style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.red.shade400,
-                                    fontFamily: 'Nexa'),
-                              ),
-                            );
-                          } else if (snapshot.hasData) {
-                            // If the image was just generated, store it in the _generatedImage variable
-                            _generatedImage ??= snapshot.data;
-                            return RepaintBoundary(
-                              key: _globalKey,
-                              child: InkWell(
-                                onTap: () {
-                                  _saveScreen();
-                                },
-                                child: Image.memory(snapshot.data!),
-                              ),
-                            );
-                          } else {
-                            return Container();
-                          }
-                        },
-                      )
-                    : Center(
-                        child: Text(
-                          'See Magic Here 🪄',
-                          style: TextStyle(
-                              fontSize: 16,
-                              color: Theme.of(context).colorScheme.secondary,
-                              fontFamily: 'Nexa'),
-                        ),
-                      ),
-              ),
-            ),
-            SizedBox(
-              height: MediaQuery.of(context).size.width / 11.5,
-            ),
-            const Text(
-              'Click the image to save in Gallery.',
-              softWrap: true,
-              style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'Nexa'),
-            ),
-            TextButton.icon(
-              icon: const Icon(Iconsax.colors_square),
-              label: Text('Select Style',
-                style: TextStyle(
-                    fontSize: 16,
-                    color: Theme.of(context).colorScheme.secondary,
-                    fontFamily: 'Nexa'),
-              ),
-              onPressed: () => _showStyleSelectorDialog(),
-            ),
-            const SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 80, right: 80),
-              child: ElevatedButton(
-                onPressed: () {
-                  String newQuery = _queryController.text;
-                  if (newQuery.isNotEmpty) {
-                    setState(() {
-                      query = newQuery;
-                      _generatedImage = null; // Clear the cached image
-                      run = true;
-                    });
-                  } else {
-                    if (newQuery.isEmpty) {
-                      Fluttertoast.showToast(
-                        msg: 'Query is empty !!',
-                        gravity: ToastGravity.BOTTOM,
-                        backgroundColor: Colors.red,
-                      );
-                      print('Query is empty !!');
-                    }
-                  }
-                },
-                style: ButtonStyle(
-                  padding: MaterialStateProperty.all(
-                    const EdgeInsets.all(0.0),
-                  ),
-                  elevation: MaterialStateProperty.all(0),
-                  shape: MaterialStateProperty.all(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                  ),
-                ),
-                child: Ink(
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [
-                        Colors.deepPurple.shade400,
-                        Colors.deepPurpleAccent.shade200,
-                      ],
-                    ),
-                    borderRadius: const BorderRadius.all(
-                      Radius.circular(5.0),
-                    ),
-                  ),
-                  child: Container(
-                    constraints: const BoxConstraints(
-                      minWidth: 88.0,
-                      minHeight: 45.0,
-                    ),
-                    alignment: Alignment.center,
-                    child: const Text(
-                      'Generate',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'Nexa',
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 7),
-        child: Text(
-          "Made With Love ❤️ VikiMedia",
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'NexaLight',
-            color: Theme.of(context).colorScheme.secondary,
-          ),
-        ),
-      ),
-    );
-  }
-
-  _saveScreen() async {
-    if (_isDownloading) {
-      // Do nothing if a download is already in progress.
-      Fluttertoast.showToast(
-        msg: 'Download in progress. Please wait.',
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.amber,
-        timeInSecForIosWeb: 3,
-      );
-      return;
-    }
-    if (_isDownloadInitiated) {
-      return;
-    }
-    _isDownloadInitiated = true;
-    Fluttertoast.showToast(
-      msg: 'Download Started !',
-      gravity: ToastGravity.BOTTOM,
-      timeInSecForIosWeb: 3,
-    );
-    _isDownloading = true;
-    RenderRepaintBoundary boundary =
-        _globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
-    ui.Image image = await boundary.toImage(pixelRatio: 12);
-    ByteData? byteData =
-        await (image.toByteData(format: ui.ImageByteFormat.png));
-    if (byteData != null) {
-      final result = await ImageGallerySaver.saveImage(
-        byteData.buffer.asUint8List(),
-        quality: 100,
-      );
-      print(result);
-      Fluttertoast.showToast(
-        msg: 'Image Successfully Saved To Gallery.',
-        gravity: ToastGravity.BOTTOM,
-        backgroundColor: Colors.green,
-        timeInSecForIosWeb: 3,
-      );
-    }
-    _isDownloadInitiated = false;
-    _isDownloading = false;
   }
 }
