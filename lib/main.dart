@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:text_to_image_gen/utils/strings.dart';
@@ -8,6 +9,7 @@ import 'package:text_to_image_gen/widgets/app_theme.dart';
 
 import 'Pages/home_page.dart';
 import 'Pages/settings_page.dart';
+import 'bloc/app_directory_cubit.dart';
 import 'bloc/app_mode_cubit.dart';
 import 'bloc/app_theme_cubit.dart';
 
@@ -33,22 +35,31 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => AppModeCubit(system)..loadMode(),
         ),
+        BlocProvider(
+          create: (_) => AppDirectoryCubit(pathHint)..loadPath(),
+        ),
       ],
       child: BlocBuilder<AppThemeCubit, AppThemeState>(
         builder: (context, appTheme) {
           return BlocBuilder<AppModeCubit, AppModeState>(
             builder: (context, appMode) {
-              return MaterialApp(
-                scrollBehavior: CustomScroll(),
-                initialRoute: '/',
-                routes: {
-                  '/': (_) => const HomePage(),
-                  '/Settings': (_) => const SettingsPage(),
+              return Shortcuts(
+                shortcuts: <LogicalKeySet, Intent>{
+                  LogicalKeySet(LogicalKeyboardKey.select):
+                      const ActivateIntent(),
                 },
-                debugShowCheckedModeBanner: false,
-                themeMode: getMode(appMode.mode),
-                theme: appTheme.theme.lightTheme,
-                darkTheme: appTheme.theme.darkTheme,
+                child: MaterialApp(
+                  scrollBehavior: CustomScroll(),
+                  initialRoute: '/',
+                  routes: {
+                    '/': (_) => const HomePage(),
+                    '/Settings': (_) => const SettingsPage(),
+                  },
+                  debugShowCheckedModeBanner: false,
+                  themeMode: getMode(appMode.mode),
+                  theme: appTheme.theme.lightTheme,
+                  darkTheme: appTheme.theme.darkTheme,
+                ),
               );
             },
           );
