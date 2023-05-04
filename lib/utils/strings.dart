@@ -1,13 +1,16 @@
 import '../widgets/app_theme.dart';
 
 final appThemes = {
-  material : 'Material',
+  material: 'Material',
   indigoTheme: 'Indigo Nights',
-  blueWhaleTheme : 'Blue Whale',
-  goldSunset : 'Gold Sunset',
-  dellGenoaGreen : 'Dell Genoe Green',
+  blueWhaleTheme: 'Blue Whale',
+  goldSunset: 'Gold Sunset',
+  dellGenoaGreen: 'Dell Genoe Green',
 };
 
 const system = 'system';
 const light = 'light';
 const dark = 'dark';
+
+const pathHint = 'Click to choose folder';
+const app = 'TexFusion';
