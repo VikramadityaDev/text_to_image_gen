@@ -1,8 +1,10 @@
 import 'dart:ui';
+import 'dart:io' show Platform;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:text_to_image_gen/utils/strings.dart';
 import 'package:text_to_image_gen/widgets/app_theme.dart';
@@ -15,6 +17,11 @@ import 'bloc/app_theme_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  if (Platform.isAndroid) {
+    await Future.delayed(const Duration(milliseconds: 1200)).then(
+          (value) => FlutterNativeSplash.remove(),
+    );
+  }
   await SentryFlutter.init(
     (options) => options.dsn =
         'https://725035c013bd4e7495b4fc7e472f6c5f@o4505074740953088.ingest.sentry.io/4505074742132736',

@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  brain_fusion: ^0.0.7
+  brain_fusion: ^0.0.8
   lottie: ^2.3.2
   url_launcher: ^6.1.10
   sentry_flutter: ^7.5.1
@@ -25,6 +25,8 @@ dependencies:
   path: ^1.8.2
   permission_handler: ^10.2.0
   device_info_plus: ^8.2.2
+  flutter_native_splash: ^2.2.19
+  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:
   flutter_test:
