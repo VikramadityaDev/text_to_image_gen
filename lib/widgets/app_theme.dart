@@ -26,104 +26,119 @@ class AppTheme {
   });
 }
 
-
 AppTheme indigoTheme = AppTheme(
   name: 'Indigo Nights',
   lightTheme: FlexThemeData.light(
-    useMaterial3: true,
     scheme: FlexScheme.indigo,
     surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-    blendLevel: 9,
+    blendLevel: 7,
     subThemesData: const FlexSubThemesData(
       blendOnLevel: 10,
       blendOnColors: false,
-      navigationBarHeight: 70,
+      useM2StyleDividerInM3: true,
     ),
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
-    fontFamily: 'Cairo',
-
+    useMaterial3: true,
+    swapLegacyOnMaterial3: true,
   ),
   darkTheme: FlexThemeData.dark(
-    useMaterial3: true,
     scheme: FlexScheme.indigo,
     surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-    blendLevel: 15,
+    blendLevel: 13,
     subThemesData: const FlexSubThemesData(
       blendOnLevel: 20,
-      navigationBarHeight: 70,
+      useM2StyleDividerInM3: true,
     ),
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
-    fontFamily: 'Cairo',
+    useMaterial3: true,
+    swapLegacyOnMaterial3: true,
   ),
 );
-
-
-
 
 AppTheme blueWhaleTheme = AppTheme(
   name: 'Blue Whale',
   lightTheme: FlexThemeData.light(
-    useMaterial3: true,
     scheme: FlexScheme.blueWhale,
     surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-    blendLevel: 9,
+    blendLevel: 7,
     subThemesData: const FlexSubThemesData(
       blendOnLevel: 10,
       blendOnColors: false,
-      navigationBarHeight: 70,
+      useM2StyleDividerInM3: true,
     ),
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
-    fontFamily: 'Cairo',
-
+    useMaterial3: true,
+    swapLegacyOnMaterial3: true,
   ),
   darkTheme: FlexThemeData.dark(
-    useMaterial3: true,
     scheme: FlexScheme.blueWhale,
     surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-    blendLevel: 15,
+    blendLevel: 13,
     subThemesData: const FlexSubThemesData(
       blendOnLevel: 20,
-      navigationBarHeight: 70,
-
+      useM2StyleDividerInM3: true,
     ),
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
-    fontFamily: 'Cairo',
-
+    useMaterial3: true,
+    swapLegacyOnMaterial3: true,
   ),
 );
 
 AppTheme material = AppTheme(
   name: 'Material',
   lightTheme: FlexThemeData.light(
-    useMaterial3: true,
     scheme: FlexScheme.material,
     surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-    blendLevel: 9,
+    blendLevel: 7,
     subThemesData: const FlexSubThemesData(
       blendOnLevel: 10,
       blendOnColors: false,
-      navigationBarHeight: 70,
-
+      useM2StyleDividerInM3: true,
     ),
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
+    useMaterial3: true,
     swapLegacyOnMaterial3: true,
-    fontFamily: 'Cairo',
-
   ),
   darkTheme: FlexThemeData.dark(
-    useMaterial3: true,
     scheme: FlexScheme.material,
     surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-    blendLevel: 15,
+    blendLevel: 13,
     subThemesData: const FlexSubThemesData(
       blendOnLevel: 20,
-      navigationBarHeight: 70,
-
+      useM2StyleDividerInM3: true,
     ),
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
+    useMaterial3: true,
     swapLegacyOnMaterial3: true,
-    fontFamily: 'Cairo',
+  ),
+);
 
+AppTheme materialHighContrast = AppTheme(
+  name: 'Material High Contrast',
+  lightTheme: FlexThemeData.light(
+    scheme: FlexScheme.materialHc,
+    surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+    blendLevel: 7,
+    subThemesData: const FlexSubThemesData(
+      blendOnLevel: 10,
+      blendOnColors: false,
+      useM2StyleDividerInM3: true,
+    ),
+    visualDensity: FlexColorScheme.comfortablePlatformDensity,
+    useMaterial3: true,
+    swapLegacyOnMaterial3: true,
+  ),
+  darkTheme: FlexThemeData.dark(
+    scheme: FlexScheme.materialHc,
+    surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+    blendLevel: 13,
+    subThemesData: const FlexSubThemesData(
+      blendOnLevel: 20,
+      useM2StyleDividerInM3: true,
+    ),
+    visualDensity: FlexColorScheme.comfortablePlatformDensity,
+    useMaterial3: true,
+    swapLegacyOnMaterial3: true,
   ),
 );
 
@@ -132,35 +147,28 @@ AppTheme goldSunset = AppTheme(
   lightTheme: FlexThemeData.light(
     scheme: FlexScheme.gold,
     surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-    blendLevel: 9,
+    blendLevel: 7,
     subThemesData: const FlexSubThemesData(
       blendOnLevel: 10,
       blendOnColors: false,
-      navigationBarHeight: 70,
-
+      useM2StyleDividerInM3: true,
     ),
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
     useMaterial3: true,
     swapLegacyOnMaterial3: true,
-    fontFamily: 'Cairo',
-
   ),
   darkTheme: FlexThemeData.dark(
     scheme: FlexScheme.gold,
     surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-    blendLevel: 15,
+    blendLevel: 13,
     subThemesData: const FlexSubThemesData(
       blendOnLevel: 20,
-      navigationBarHeight: 70,
-
+      useM2StyleDividerInM3: true,
     ),
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
     useMaterial3: true,
     swapLegacyOnMaterial3: true,
-    fontFamily: 'Cairo',
-
   ),
-
 );
 
 AppTheme dellGenoaGreen = AppTheme(
@@ -168,32 +176,142 @@ AppTheme dellGenoaGreen = AppTheme(
   lightTheme: FlexThemeData.light(
     scheme: FlexScheme.dellGenoa,
     surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-    blendLevel: 9,
+    blendLevel: 7,
     subThemesData: const FlexSubThemesData(
       blendOnLevel: 10,
       blendOnColors: false,
-      navigationBarHeight: 70,
-
+      useM2StyleDividerInM3: true,
     ),
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
     useMaterial3: true,
     swapLegacyOnMaterial3: true,
-    fontFamily: 'Cairo',
-
   ),
   darkTheme: FlexThemeData.dark(
     scheme: FlexScheme.dellGenoa,
     surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
-    blendLevel: 15,
+    blendLevel: 13,
     subThemesData: const FlexSubThemesData(
       blendOnLevel: 20,
-      navigationBarHeight: 70,
-
+      useM2StyleDividerInM3: true,
     ),
     visualDensity: FlexColorScheme.comfortablePlatformDensity,
     useMaterial3: true,
     swapLegacyOnMaterial3: true,
-    fontFamily: 'Cairo',
+  ),
+);
 
+AppTheme greyLaw = AppTheme(
+  name: 'Grey Law',
+  lightTheme: FlexThemeData.light(
+    scheme: FlexScheme.greyLaw,
+    surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+    blendLevel: 7,
+    subThemesData: const FlexSubThemesData(
+      blendOnLevel: 10,
+      blendOnColors: false,
+      useM2StyleDividerInM3: true,
+    ),
+    visualDensity: FlexColorScheme.comfortablePlatformDensity,
+    useMaterial3: true,
+    swapLegacyOnMaterial3: true,
+  ),
+  darkTheme: FlexThemeData.dark(
+    scheme: FlexScheme.greyLaw,
+    surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+    blendLevel: 13,
+    subThemesData: const FlexSubThemesData(
+      blendOnLevel: 20,
+      useM2StyleDividerInM3: true,
+    ),
+    visualDensity: FlexColorScheme.comfortablePlatformDensity,
+    useMaterial3: true,
+    swapLegacyOnMaterial3: true,
+  ),
+);
+
+AppTheme camaroneGreen = AppTheme(
+  name: 'Camarone Green',
+  lightTheme: FlexThemeData.light(
+    scheme: FlexScheme.greenM3,
+    surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+    blendLevel: 7,
+    subThemesData: const FlexSubThemesData(
+      blendOnLevel: 10,
+      blendOnColors: false,
+      useM2StyleDividerInM3: true,
+    ),
+    visualDensity: FlexColorScheme.comfortablePlatformDensity,
+    useMaterial3: true,
+    swapLegacyOnMaterial3: true,
+  ),
+  darkTheme: FlexThemeData.dark(
+    scheme: FlexScheme.greenM3,
+    surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+    blendLevel: 13,
+    subThemesData: const FlexSubThemesData(
+      blendOnLevel: 20,
+      useM2StyleDividerInM3: true,
+    ),
+    visualDensity: FlexColorScheme.comfortablePlatformDensity,
+    useMaterial3: true,
+    swapLegacyOnMaterial3: true,
+  ),
+);
+
+AppTheme rustDeepOrange = AppTheme(
+  name: 'Rust Deep Orange',
+  lightTheme: FlexThemeData.light(
+    scheme: FlexScheme.deepOrangeM3,
+    surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+    blendLevel: 7,
+    subThemesData: const FlexSubThemesData(
+      blendOnLevel: 10,
+      blendOnColors: false,
+      useM2StyleDividerInM3: true,
+    ),
+    visualDensity: FlexColorScheme.comfortablePlatformDensity,
+    useMaterial3: true,
+    swapLegacyOnMaterial3: true,
+  ),
+  darkTheme: FlexThemeData.dark(
+    scheme: FlexScheme.deepOrangeM3,
+    surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+    blendLevel: 13,
+    subThemesData: const FlexSubThemesData(
+      blendOnLevel: 20,
+      useM2StyleDividerInM3: true,
+    ),
+    visualDensity: FlexColorScheme.comfortablePlatformDensity,
+    useMaterial3: true,
+    swapLegacyOnMaterial3: true,
+  ),
+);
+
+AppTheme espressoAndCream = AppTheme(
+  name: 'Espresso and Cream',
+  lightTheme: FlexThemeData.light(
+    scheme: FlexScheme.espresso,
+    surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+    blendLevel: 7,
+    subThemesData: const FlexSubThemesData(
+      blendOnLevel: 10,
+      blendOnColors: false,
+      useM2StyleDividerInM3: true,
+    ),
+    visualDensity: FlexColorScheme.comfortablePlatformDensity,
+    useMaterial3: true,
+    swapLegacyOnMaterial3: true,
+  ),
+  darkTheme: FlexThemeData.dark(
+    scheme: FlexScheme.espresso,
+    surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+    blendLevel: 13,
+    subThemesData: const FlexSubThemesData(
+      blendOnLevel: 20,
+      useM2StyleDividerInM3: true,
+    ),
+    visualDensity: FlexColorScheme.comfortablePlatformDensity,
+    useMaterial3: true,
+    swapLegacyOnMaterial3: true,
   ),
 );

@@ -229,6 +229,7 @@ class _SettingsPageState extends State<SettingsPage> {
                           ),
                         ),
                         ListView(
+                          physics: const BouncingScrollPhysics(),
                           shrinkWrap: true,
                           children: _themes.map((theme) {
                             return Padding(
