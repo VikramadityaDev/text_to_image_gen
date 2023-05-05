@@ -355,7 +355,7 @@ class _HomePageState extends State<HomePage> {
                             padding: const EdgeInsets.all(50),
                             child: Lottie.asset(
                               'assets/animations/loading.json',
-                              frameRate: FrameRate(60),
+                              frameRate: FrameRate(120),
                               repeat: true,
                               animate: true,
                             ),
