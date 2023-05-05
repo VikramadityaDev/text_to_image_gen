@@ -13,41 +13,45 @@ TexFusion AI app created by flutter framework and it is a new AI art generation 
 - Unlimited Response
 - Added 12 Styles including 3D render.
 - Download Image
-- Accent Color Mode
-- Theme Mode
+- Different Theme And Modes
 - Custom Font
 - Lightweight & user-friendly
+- Cross Platform (Android , Linux , Windows and MacOs)
 
 ## How it work !
 - Make sure you enter more descriptive prompt. As this is kind of new api, it produces HD image with less descriptive prompt. So, make sure you describe the image correctly that you want as output.
 
-    Fork the repo 🔥 and don't forget to star the repo 🌟
+  Fork the repo 🔥 and don't forget to star the repo 🌟
 
 ## Screenshots
 <Table>
     <tr>                   
-        <th>Home Screen View</th>
-        <th>Drawer Screen View</th>
-        <th>Accent Color Dialog View</th>
-        <th>Theme Mode Dialog View</th>
+        <th>Home Screen View In Desktop</th>
+        <th>Home Screen View In Mobile</th>
+        <th>Settings Page</th>
     </tr>
     <tr>
-        <td><img src="screenshots/Screenshot 8.png" width=300/></td>
-        <td><img src="screenshots/Screenshot 5.png" width=300/></td>
-        <td><img src="screenshots/Screenshot 6.png" width=300/></td>
-        <td><img src="screenshots/Screenshot 7.png" width=300/></td>
+        <td><img src="screenshots/01.png" width=600/></td>
+        <td><img src="screenshots/04.png" width=300/></td>
+        <td><img src="screenshots/05.png" width=300/></td>
     </tr>
     <tr>                   
-        <th>Prompt Example 1</th>
-        <th>Prompt Example 2</th>
-        <th>Prompt Example 3</th>
-        <th>Prompt Example 4</th>
+        <th>Responsive UI</th>
+        <th>Dark Mode in Mobile</th>
+        <th>Save option</th>
     </tr>
     <tr>
-        <td><img src="screenshots/Screenshot 1.png" width=300/></td>
-        <td><img src="screenshots/Screenshot 2.png" width=300/></td>
-        <td><img src="screenshots/Screenshot 3.png" width=300/></td>
-        <td><img src="screenshots/Screenshot 4.png" width=300/></td>
+        <td><img src="screenshots/03.png" width=600/></td>
+        <td><img src="screenshots/08.png" width=300/></td>
+        <td><img src="screenshots/07.png" width=300/></td>
+    </tr>
+    <tr>                   
+        <th>Dark Mode in Desktop</th>
+        <th>Different Style</th>
+    </tr>
+    <tr>
+        <td><img src="screenshots/02.png" width=600/></td>
+        <td><img src="screenshots/06.png" width=300/></td>
     </tr>
 </Table>
 
@@ -57,7 +61,7 @@ Whether you have ideas, design changes, code cleaning, or really heavy code chan
 ## Contributors ✨
 [![](https://opencollective.com/text_to_image_gen/contributors.svg?width=890&button=false)](https://github.com/VikramadityaDev/text_to_image_gen/graphs/contributors)
 
-    
+
 ## License
 ```
     MIT License
