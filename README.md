@@ -56,14 +56,7 @@ Whether you have ideas, design changes, code cleaning, or really heavy code chan
 
 ## Contributors ✨
 
-<!-- ALL-CONTRIBUTORS-LIST:START -->
-<!-- prettier-ignore-start -->
-<!-- markdownlint-disable -->
-
-<!-- markdownlint-restore -->
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
+[![](https://opencollective.com/text_to_image_gen/contributors.svg?width=890&button=false)](https://github.com/VikramadityaDev/text_to_image_gen/graphs/contributors)
     
 ## License
 ```
