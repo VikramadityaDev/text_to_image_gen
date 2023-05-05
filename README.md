@@ -53,6 +53,17 @@ TexFusion AI app created by flutter framework and it is a new AI art generation 
 
 ## Contribution
 Whether you have ideas, design changes, code cleaning, or really heavy code changes, help is always welcome. The more it is done, the better it gets! So feel free to create an issue and make a pull request.
+
+## Contributors ✨
+
+<!-- ALL-CONTRIBUTORS-LIST:START -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
     
 ## License
 ```
