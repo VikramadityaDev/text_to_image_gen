@@ -179,7 +179,7 @@ class AboutPage extends StatelessWidget {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.only(bottom: 7),
         child: Text(
-          "Made By  VikiMedia &️ DJ-Yacine",
+          "Made By  VikramadityaDev &️ DJ-Yacine",
           textAlign: TextAlign.center,
           style: TextStyle(
             fontSize: 11,
