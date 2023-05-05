@@ -32,6 +32,9 @@ class _HomePageState extends State<HomePage> {
     AIStyle.noStyle: 'No style',
     AIStyle.render3D: '3D render',
     AIStyle.anime: 'Anime',
+    AIStyle.islamic: 'Islamic',
+    AIStyle.iconography: 'Icon Graphy',
+    AIStyle.mosaic: 'Mosaic',
     AIStyle.moreDetails: 'More Detailed',
     AIStyle.cyberPunk: 'CyberPunk',
     AIStyle.cartoon: 'Cartoon',
@@ -52,7 +55,7 @@ class _HomePageState extends State<HomePage> {
           await appDir.create();
         }
         final image =
-            'IMG-${DateTime.now().hour.toString()}-${DateTime.now().minute.toString()}-${DateTime.now().second.toString()}-${DateTime.now().millisecond.toString()}-TexFusion.png';
+            '''IMG-${DateTime.now().day.toString()}-${DateTime.now().month.toString()}-${DateTime.now().year.toString()}--${DateTime.now().hour.toString()}-${DateTime.now().minute.toString()}-${DateTime.now().millisecond.toString()}-TexFusion.jpeg''';
         final filePath = xp.join(appDir.path, image);
         final file = File(filePath);
         await file.writeAsBytes(canvas).whenComplete(() {
@@ -60,10 +63,6 @@ class _HomePageState extends State<HomePage> {
             SnackBar(
               content: Text('Image was Downloaded in $filePath'),
               elevation: 10,
-/*            padding: const EdgeInsets.all(15),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),*/
             ),
           );
         });
@@ -187,9 +186,8 @@ class _HomePageState extends State<HomePage> {
                                 padding: const EdgeInsets.all(10),
                                 child: Icon(
                                   Icons.clear,
-                                  color: Theme.of(context)
-                                      .colorScheme
-                                      .secondary,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                 ),
                               ),
                             ),
@@ -239,7 +237,7 @@ class _HomePageState extends State<HomePage> {
                               padding: EdgeInsets.symmetric(vertical: 14.0),
                               child: Icon(
                                 Icons.gesture,
-                                size: 30 ,
+                                size: 30,
                               ),
                             ),
                           ),
@@ -277,10 +275,11 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               children: [
                                 SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.9,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.9,
                                   child: FadeInImage(
-                                    placeholder:
-                                    const AssetImage('assets/images/Ai.webp'),
+                                    placeholder: const AssetImage(
+                                        'assets/images/Ai.webp'),
                                     image: MemoryImage(image),
                                     fit: BoxFit.contain,
                                   ),
@@ -290,7 +289,7 @@ class _HomePageState extends State<HomePage> {
                                   child: SizedBox(
                                     height: 60,
                                     width:
-                                    MediaQuery.of(context).size.width * 0.9,
+                                        MediaQuery.of(context).size.width * 0.9,
                                     child: InkWell(
                                       focusColor: Theme.of(context)
                                           .colorScheme
@@ -309,12 +308,12 @@ class _HomePageState extends State<HomePage> {
                                             padding: const EdgeInsets.all(2),
                                             child: Container(
                                               width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
+                                                      .size
+                                                      .width *
                                                   0.9,
                                               decoration: BoxDecoration(
                                                 borderRadius:
-                                                BorderRadius.circular(4),
+                                                    BorderRadius.circular(4),
                                                 gradient: LinearGradient(
                                                   begin: Alignment.topRight,
                                                   end: Alignment.bottomLeft,
@@ -359,7 +358,7 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 SizedBox(
                                   width:
-                                  MediaQuery.of(context).size.height * 0.7,
+                                      MediaQuery.of(context).size.height * 0.7,
                                   child: FadeInImage(
                                     placeholder: const AssetImage(
                                         'assets/images/Ai.webp'),
@@ -392,7 +391,7 @@ class _HomePageState extends State<HomePage> {
                                               width: 125,
                                               decoration: BoxDecoration(
                                                 borderRadius:
-                                                BorderRadius.circular(4),
+                                                    BorderRadius.circular(4),
                                                 gradient: LinearGradient(
                                                   begin: Alignment.topRight,
                                                   end: Alignment.bottomLeft,
@@ -515,10 +514,11 @@ class _HomePageState extends State<HomePage> {
                             child: Column(
                               children: [
                                 SizedBox(
-                                  width: MediaQuery.of(context).size.width * 0.9,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.9,
                                   child: FadeInImage(
-                                    placeholder:
-                                        const AssetImage('assets/images/Ai.webp'),
+                                    placeholder: const AssetImage(
+                                        'assets/images/Ai.webp'),
                                     image: MemoryImage(image),
                                     fit: BoxFit.contain,
                                   ),
