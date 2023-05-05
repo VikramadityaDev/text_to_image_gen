@@ -32,6 +32,9 @@ class _HomePageState extends State<HomePage> {
     AIStyle.noStyle: 'No style',
     AIStyle.render3D: '3D render',
     AIStyle.anime: 'Anime',
+    AIStyle.islamic: 'Islamic',
+    AIStyle.iconography: 'Icon Graphy',
+    AIStyle.mosaic: 'Mosaic',
     AIStyle.moreDetails: 'More Detailed',
     AIStyle.cyberPunk: 'CyberPunk',
     AIStyle.cartoon: 'Cartoon',
@@ -52,7 +55,7 @@ class _HomePageState extends State<HomePage> {
           await appDir.create();
         }
         final image =
-            'IMG-${DateTime.now().hour.toString()}-${DateTime.now().minute.toString()}-${DateTime.now().second.toString()}-${DateTime.now().millisecond.toString()}-TexFusion.png';
+            '''IMG-${DateTime.now().day.toString()}-${DateTime.now().month.toString()}-${DateTime.now().year.toString()}--${DateTime.now().hour.toString()}-${DateTime.now().minute.toString()}-${DateTime.now().millisecond.toString()}-TexFusion.jpeg''';
         final filePath = xp.join(appDir.path, image);
         final file = File(filePath);
         await file.writeAsBytes(canvas).whenComplete(() {
@@ -60,10 +63,6 @@ class _HomePageState extends State<HomePage> {
             SnackBar(
               content: Text('Image was Downloaded in $filePath'),
               elevation: 10,
-/*            padding: const EdgeInsets.all(15),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0),
-            ),*/
             ),
           );
         });
@@ -103,6 +102,9 @@ class _HomePageState extends State<HomePage> {
           actions: [
             InkWell(
               onTap: () {
+                if (FocusScope.of(context).hasFocus) {
+                  FocusScope.of(context).unfocus();
+                }
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -111,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                 );
               },
               child: Padding(
-                padding: const EdgeInsets.all(15),
+                padding: const EdgeInsets.all(16),
                 child: Icon(
                   Iconsax.setting_2,
                   color: Theme.of(context).colorScheme.primary,
@@ -121,6 +123,9 @@ class _HomePageState extends State<HomePage> {
           ],
           leading: InkWell(
             onTap: () {
+              if (FocusScope.of(context).hasFocus) {
+                FocusScope.of(context).unfocus();
+              }
               scaffoldKey.currentState?.openDrawer();
             },
             child: Icon(
@@ -132,7 +137,6 @@ class _HomePageState extends State<HomePage> {
             text: TextSpan(
               text: 'Tex',
               style: TextStyle(
-                  //color: Colors.amber.shade900,
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -157,193 +161,91 @@ class _HomePageState extends State<HomePage> {
             physics: const BouncingScrollPhysics(),
             child: Column(
               children: [
-                MediaQuery.of(context).size.height >
-                        MediaQuery.of(context).size.width
-                    ? Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: SizedBox(
-                          height: 140,
-                          child: Center(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.9,
-                                  child: TextField(
-                                    autofocus: false,
-                                    controller: _textEditingController,
-                                    decoration: InputDecoration(
-                                      hintText: "Enter Anything in Your Mind",
-                                      labelText: "Enter Anything in Your Mind",
-                                      border: const OutlineInputBorder(),
-                                      suffixIcon: IconButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            _textEditingController.clear();
-                                          });
-                                        },
-                                        icon: Padding(
-                                          padding: const EdgeInsets.all(10),
-                                          child: Icon(
-                                            Icons.clear,
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .secondary,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    onChanged: (text) {
-                                      if (text.isEmpty) {
-                                        setState(() {
-                                          _textEditingController.clear();
-                                        });
-                                      }
-                                    },
-                                    onSubmitted: (query) {
-                                      if (query.isNotEmpty) {
-                                        if (FocusScope.of(context).hasFocus) {
-                                          FocusScope.of(context).unfocus();
-                                        }
-                                        setState(() {
-                                          _textEditingController.text = query;
-                                        });
-                                        _chooseStyle(
-                                            _textEditingController.text);
-                                      }
-                                    },
-                                  ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.75,
+                        child: TextField(
+                          autofocus: false,
+                          controller: _textEditingController,
+                          decoration: InputDecoration(
+                            hintText: "Enter Anything in Your Mind",
+                            labelText: "Enter Anything in Your Mind",
+                            border: const OutlineInputBorder(),
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  _textEditingController.clear();
+                                });
+                              },
+                              icon: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Icon(
+                                  Icons.clear,
+                                  color:
+                                      Theme.of(context).colorScheme.secondary,
                                 ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(7),
-                                  ),
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.9,
-                                  child: ElevatedButton(
-                                    style: ButtonStyle(
-                                      shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                        RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(7),
-                                        ),
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      if (_textEditingController
-                                          .text.isNotEmpty) {
-                                        FocusScope.of(context).unfocus();
-                                        _chooseStyle(
-                                            _textEditingController.text);
-                                      }
-                                    },
-                                    child: const Padding(
-                                      padding: EdgeInsets.all(13),
-                                      child: Icon(
-                                        Icons.gesture,
-                                        size: 35,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              ),
+                            ),
+                          ),
+                          onChanged: (text) {
+                            if (text.isEmpty) {
+                              setState(() {
+                                _textEditingController.clear();
+                              });
+                            }
+                          },
+                          onSubmitted: (query) {
+                            if (query.isNotEmpty) {
+                              if (FocusScope.of(context).hasFocus) {
+                                FocusScope.of(context).unfocus();
+                              }
+                              setState(() {
+                                _textEditingController.text = query;
+                              });
+                              _chooseStyle(_textEditingController.text);
+                            }
+                          },
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(7),
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.20,
+                        child: ElevatedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(7),
+                              ),
+                            ),
+                          ),
+                          onPressed: () {
+                            if (_textEditingController.text.isNotEmpty) {
+                              FocusScope.of(context).unfocus();
+                              _chooseStyle(_textEditingController.text);
+                            }
+                          },
+                          child: const Center(
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 14.0),
+                              child: Icon(
+                                Icons.gesture,
+                                size: 30,
+                              ),
                             ),
                           ),
                         ),
-                      )
-                    : Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(5),
-                              child: SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.8,
-                                child: TextField(
-                                  autofocus: false,
-                                  controller: _textEditingController,
-                                  decoration: InputDecoration(
-                                    hintText: "Enter Anything in Your Mind",
-                                    labelText: "Enter Anything in Your Mind",
-                                    border: const OutlineInputBorder(),
-                                    suffixIcon: IconButton(
-                                      onPressed: () {
-                                        setState(() {
-                                          _textEditingController.clear();
-                                        });
-                                      },
-                                      icon: Padding(
-                                        padding: const EdgeInsets.all(10),
-                                        child: Icon(
-                                          Icons.clear,
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .secondary,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  onChanged: (text) {
-                                    if (text.isEmpty) {
-                                      setState(() {
-                                        _textEditingController.clear();
-                                      });
-                                    }
-                                  },
-                                  onSubmitted: (query) {
-                                    if (query.isNotEmpty) {
-                                      if (FocusScope.of(context).hasFocus) {
-                                        FocusScope.of(context).unfocus();
-                                      }
-                                      setState(() {
-                                        _textEditingController.text = query;
-                                      });
-                                      _chooseStyle(_textEditingController.text);
-                                    }
-                                  },
-                                ),
-                              ),
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(7),
-                              ),
-                              width: MediaQuery.of(context).size.width * 0.15,
-                              child: ElevatedButton(
-                                style: ButtonStyle(
-                                  shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(7),
-                                    ),
-                                  ),
-                                ),
-                                onPressed: () {
-                                  if (_textEditingController.text.isNotEmpty) {
-                                    FocusScope.of(context).unfocus();
-                                    _chooseStyle(_textEditingController.text);
-                                  }
-                                },
-                                child: const Padding(
-                                  padding: EdgeInsets.all(13),
-                                  child: Icon(
-                                    Icons.gesture,
-                                    size: 35,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
                       ),
+                    ],
+                  ),
+                ),
                 BlocBuilder<ImageCubit, ImageState>(
                   builder: (context, state) {
                     if (state is ImageLoading) {
@@ -368,69 +270,73 @@ class _HomePageState extends State<HomePage> {
                       if (Platform.isAndroid) {
                         if (MediaQuery.of(context).orientation ==
                             Orientation.portrait) {
-                          return Column(
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.9,
-                                child: FadeInImage(
-                                  placeholder:
-                                      const AssetImage('assets/images/Ai.webp'),
-                                  image: MemoryImage(image),
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: SizedBox(
-                                  height: 60,
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            child: Column(
+                              children: [
+                                SizedBox(
                                   width:
                                       MediaQuery.of(context).size.width * 0.9,
-                                  child: InkWell(
-                                    focusColor: Theme.of(context)
-                                        .colorScheme
-                                        .onBackground,
-                                    borderRadius: BorderRadius.circular(7),
-                                    onTap: () async {
-                                      await _saveImage(image);
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5),
-                                      child: Container(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(2),
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.9,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(4),
-                                              gradient: LinearGradient(
-                                                begin: Alignment.topRight,
-                                                end: Alignment.bottomLeft,
-                                                colors: [
-                                                  Theme.of(context)
-                                                      .colorScheme
-                                                      .primary,
-                                                  Theme.of(context)
-                                                      .colorScheme
-                                                      .secondary,
-                                                ],
+                                  child: FadeInImage(
+                                    placeholder: const AssetImage(
+                                        'assets/images/Ai.webp'),
+                                    image: MemoryImage(image),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: SizedBox(
+                                    height: 60,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.9,
+                                    child: InkWell(
+                                      focusColor: Theme.of(context)
+                                          .colorScheme
+                                          .onBackground,
+                                      borderRadius: BorderRadius.circular(7),
+                                      onTap: () async {
+                                        await _saveImage(image);
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5),
+                                        child: Container(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .surface,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(2),
+                                            child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.9,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                                gradient: LinearGradient(
+                                                  begin: Alignment.topRight,
+                                                  end: Alignment.bottomLeft,
+                                                  colors: [
+                                                    Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                    Theme.of(context)
+                                                        .colorScheme
+                                                        .secondary,
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                'Download',
-                                                style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .background,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
+                                              child: Center(
+                                                child: Text(
+                                                  'Download',
+                                                  style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .background,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16,
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -440,19 +346,17 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           );
                         } else {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.7,
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
                                   width:
                                       MediaQuery.of(context).size.height * 0.7,
                                   child: FadeInImage(
@@ -462,59 +366,55 @@ class _HomePageState extends State<HomePage> {
                                     fit: BoxFit.contain,
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: InkWell(
-                                  focusColor: Theme.of(context)
-                                      .colorScheme
-                                      .onBackground,
-                                  borderRadius: BorderRadius.circular(7),
-                                  onTap: () async {
-                                    await _saveImage(image);
-                                  },
-                                  child: SizedBox(
-                                    width: MediaQuery.of(context).size.height *
-                                        0.24,
-                                    height: 50,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5),
-                                      child: Container(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(2),
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.25,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(4),
-                                              gradient: LinearGradient(
-                                                begin: Alignment.topRight,
-                                                end: Alignment.bottomLeft,
-                                                colors: [
-                                                  Theme.of(context)
-                                                      .colorScheme
-                                                      .primary,
-                                                  Theme.of(context)
-                                                      .colorScheme
-                                                      .secondary,
-                                                ],
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: InkWell(
+                                    focusColor: Theme.of(context)
+                                        .colorScheme
+                                        .onBackground,
+                                    borderRadius: BorderRadius.circular(7),
+                                    onTap: () async {
+                                      await _saveImage(image);
+                                    },
+                                    child: SizedBox(
+                                      width: 125,
+                                      height: 50,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5),
+                                        child: Container(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .surface,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(2),
+                                            child: Container(
+                                              width: 125,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                                gradient: LinearGradient(
+                                                  begin: Alignment.topRight,
+                                                  end: Alignment.bottomLeft,
+                                                  colors: [
+                                                    Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                    Theme.of(context)
+                                                        .colorScheme
+                                                        .secondary,
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                'Download',
-                                                style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .background,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
+                                              child: Center(
+                                                child: Text(
+                                                  'Download',
+                                                  style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .background,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16,
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -524,22 +424,20 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           );
                         }
                       } else {
                         if (MediaQuery.of(context).size.width >
                             MediaQuery.of(context).size.height) {
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.7,
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                SizedBox(
                                   width:
                                       MediaQuery.of(context).size.height * 0.7,
                                   child: FadeInImage(
@@ -549,89 +447,8 @@ class _HomePageState extends State<HomePage> {
                                     fit: BoxFit.contain,
                                   ),
                                 ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: InkWell(
-                                  focusColor: Theme.of(context)
-                                      .colorScheme
-                                      .onBackground,
-                                  borderRadius: BorderRadius.circular(7),
-                                  onTap: () async {
-                                    await _saveImage(image);
-                                  },
-                                  child: SizedBox(
-                                    width: MediaQuery.of(context).size.height *
-                                        0.24,
-                                    height: 50,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5),
-                                      child: Container(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(2),
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                0.25,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(4),
-                                              gradient: LinearGradient(
-                                                begin: Alignment.topRight,
-                                                end: Alignment.bottomLeft,
-                                                colors: [
-                                                  Theme.of(context)
-                                                      .colorScheme
-                                                      .primary,
-                                                  Theme.of(context)
-                                                      .colorScheme
-                                                      .secondary,
-                                                ],
-                                              ),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                'Download',
-                                                style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .background,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          );
-                        } else {
-                          return Column(
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.9,
-                                child: FadeInImage(
-                                  placeholder:
-                                      const AssetImage('assets/images/Ai.webp'),
-                                  image: MemoryImage(image),
-                                  fit: BoxFit.contain,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: SizedBox(
-                                  height: 60,
-                                  width:
-                                      MediaQuery.of(context).size.width * 0.9,
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
                                   child: InkWell(
                                     focusColor: Theme.of(context)
                                         .colorScheme
@@ -640,44 +457,45 @@ class _HomePageState extends State<HomePage> {
                                     onTap: () async {
                                       await _saveImage(image);
                                     },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5),
-                                      child: Container(
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surface,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(2),
-                                          child: Container(
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                0.9,
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(4),
-                                              gradient: LinearGradient(
-                                                begin: Alignment.topRight,
-                                                end: Alignment.bottomLeft,
-                                                colors: [
-                                                  Theme.of(context)
-                                                      .colorScheme
-                                                      .primary,
-                                                  Theme.of(context)
-                                                      .colorScheme
-                                                      .secondary,
-                                                ],
+                                    child: SizedBox(
+                                      width: 125,
+                                      height: 50,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5),
+                                        child: Container(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .surface,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(2),
+                                            child: Container(
+                                              width: 125,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                                gradient: LinearGradient(
+                                                  begin: Alignment.topRight,
+                                                  end: Alignment.bottomLeft,
+                                                  colors: [
+                                                    Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                    Theme.of(context)
+                                                        .colorScheme
+                                                        .secondary,
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                            child: Center(
-                                              child: Text(
-                                                'Download',
-                                                style: TextStyle(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .background,
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
+                                              child: Center(
+                                                child: Text(
+                                                  'Download',
+                                                  style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .background,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16,
+                                                  ),
                                                 ),
                                               ),
                                             ),
@@ -687,8 +505,88 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
+                          );
+                        } else {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.9,
+                                  child: FadeInImage(
+                                    placeholder: const AssetImage(
+                                        'assets/images/Ai.webp'),
+                                    image: MemoryImage(image),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(10),
+                                  child: SizedBox(
+                                    height: 60,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.9,
+                                    child: InkWell(
+                                      focusColor: Theme.of(context)
+                                          .colorScheme
+                                          .onBackground,
+                                      borderRadius: BorderRadius.circular(7),
+                                      onTap: () async {
+                                        await _saveImage(image);
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(5),
+                                        child: Container(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .surface,
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(2),
+                                            child: Container(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  0.9,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                                gradient: LinearGradient(
+                                                  begin: Alignment.topRight,
+                                                  end: Alignment.bottomLeft,
+                                                  colors: [
+                                                    Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                    Theme.of(context)
+                                                        .colorScheme
+                                                        .secondary,
+                                                  ],
+                                                ),
+                                              ),
+                                              child: Center(
+                                                child: Text(
+                                                  'Download',
+                                                  style: TextStyle(
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .background,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 16,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           );
                         }
                       }
