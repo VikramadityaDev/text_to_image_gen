@@ -6,8 +6,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
+import 'package:text_to_image_gen/bloc/app_language_cubit.dart';
 import 'package:text_to_image_gen/utils/strings.dart';
 import 'package:text_to_image_gen/widgets/app_theme.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'Pages/home_page.dart';
 import 'Pages/settings_page.dart';
@@ -19,7 +21,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   if (Platform.isAndroid) {
     await Future.delayed(const Duration(milliseconds: 1200)).then(
-          (value) => FlutterNativeSplash.remove(),
+      (value) => FlutterNativeSplash.remove(),
     );
   }
   await SentryFlutter.init(
@@ -37,6 +39,10 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
+          create: (_) => AppLanguageCubit(const Locale(englishLanguage, 'US'))
+            ..loadLanguage(),
+        ),
+        BlocProvider(
           create: (_) => AppThemeCubit(material)..loadTheme(),
         ),
         BlocProvider(
@@ -50,23 +56,31 @@ class MyApp extends StatelessWidget {
         builder: (context, appTheme) {
           return BlocBuilder<AppModeCubit, AppModeState>(
             builder: (context, appMode) {
-              return Shortcuts(
-                shortcuts: <LogicalKeySet, Intent>{
-                  LogicalKeySet(LogicalKeyboardKey.select):
-                      const ActivateIntent(),
+              return BlocBuilder<AppLanguageCubit, AppLanguageState>(
+                builder: (context, language) {
+                  return Shortcuts(
+                    shortcuts: <LogicalKeySet, Intent>{
+                      LogicalKeySet(LogicalKeyboardKey.select):
+                          const ActivateIntent(),
+                    },
+                    child: MaterialApp(
+                      localizationsDelegates:
+                          AppLocalizations.localizationsDelegates,
+                      supportedLocales: AppLocalizations.supportedLocales,
+                      locale: language.locale,
+                      scrollBehavior: CustomScroll(),
+                      initialRoute: '/',
+                      routes: {
+                        '/': (_) => const HomePage(),
+                        '/Settings': (_) => const SettingsPage(),
+                      },
+                      debugShowCheckedModeBanner: false,
+                      themeMode: getMode(appMode.mode),
+                      theme: appTheme.theme.lightTheme,
+                      darkTheme: appTheme.theme.darkTheme,
+                    ),
+                  );
                 },
-                child: MaterialApp(
-                  scrollBehavior: CustomScroll(),
-                  initialRoute: '/',
-                  routes: {
-                    '/': (_) => const HomePage(),
-                    '/Settings': (_) => const SettingsPage(),
-                  },
-                  debugShowCheckedModeBanner: false,
-                  themeMode: getMode(appMode.mode),
-                  theme: appTheme.theme.lightTheme,
-                  darkTheme: appTheme.theme.darkTheme,
-                ),
               );
             },
           );

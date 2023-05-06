@@ -13,9 +13,12 @@ final appThemes = {
   rustDeepOrange: 'Rust Deep Orange',
 };
 
-const system = 'system';
-const light = 'light';
-const dark = 'dark';
+const String system = 'system';
+const String light = 'light';
+const String dark = 'dark';
 
-const pathHint = 'Click to choose folder';
-const app = 'TexFusion';
+const String pathHint = 'Click to choose folder';
+const String app = 'TexFusion';
+
+const String englishLanguage = 'en';
+const String arabicLanguage = 'ar';

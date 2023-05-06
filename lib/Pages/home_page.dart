@@ -9,6 +9,7 @@ import 'package:lottie/lottie.dart';
 import 'package:text_to_image_gen/Pages/settings_page.dart';
 import 'package:text_to_image_gen/bloc/image_cubit.dart';
 import 'package:path/path.dart' as xp;
+import 'package:text_to_image_gen/utils/app_language.dart';
 
 import '../bloc/app_directory_cubit.dart';
 import '../utils/strings.dart';
@@ -61,7 +62,7 @@ class _HomePageState extends State<HomePage> {
         await file.writeAsBytes(canvas).whenComplete(() {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('Image was Downloaded in $filePath'),
+              content: Text('${translation(context).imageWasSaved} : $filePath'),
               elevation: 10,
             ),
           );
@@ -127,6 +128,9 @@ class _HomePageState extends State<HomePage> {
                 FocusScope.of(context).unfocus();
               }
               scaffoldKey.currentState?.openDrawer();
+              if (FocusScope.of(context).hasFocus) {
+                FocusScope.of(context).unfocus();
+              }
             },
             child: Icon(
               Iconsax.element_plus,
@@ -173,8 +177,8 @@ class _HomePageState extends State<HomePage> {
                           autofocus: false,
                           controller: _textEditingController,
                           decoration: InputDecoration(
-                            hintText: "Enter Anything in Your Mind",
-                            labelText: "Enter Anything in Your Mind",
+                            hintText: translation(context).putAnythingInYourMind,
+                            labelText: translation(context).putAnythingInYourMind,
                             border: const OutlineInputBorder(),
                             suffixIcon: IconButton(
                               onPressed: () {
@@ -237,7 +241,7 @@ class _HomePageState extends State<HomePage> {
                               padding: EdgeInsets.symmetric(vertical: 14.0),
                               child: Icon(
                                 Icons.gesture,
-                                size: 30,
+                                size: 32,
                               ),
                             ),
                           ),
@@ -250,18 +254,28 @@ class _HomePageState extends State<HomePage> {
                   builder: (context, state) {
                     if (state is ImageLoading) {
                       return Center(
-                        child: SizedBox(
-                          height: 300,
-                          width: 300,
-                          child: Padding(
-                            padding: const EdgeInsets.all(100),
-                            child: Lottie.asset(
-                              'assets/animations/loading.json',
-                              frameRate: FrameRate(120),
-                              repeat: true,
-                              animate: true,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 300,
+                              width: 300,
+                              child: Padding(
+                                padding: const EdgeInsets.all(100),
+                                child: Lottie.asset(
+                                  'assets/animations/loading.json',
+                                  frameRate: FrameRate(120),
+                                  repeat: true,
+                                  animate: true,
+                                ),
+                              ),
                             ),
-                          ),
+                            Text(
+                              translation(context).loading,
+                              style: const TextStyle(fontSize: 18),
+                            )
+                          ],
                         ),
                       );
                     }
@@ -329,7 +343,7 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                               child: Center(
                                                 child: Text(
-                                                  'Download',
+                                                  translation(context).download,
                                                   style: TextStyle(
                                                     color: Theme.of(context)
                                                         .colorScheme
@@ -407,7 +421,7 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                               child: Center(
                                                 child: Text(
-                                                  'Download',
+                                                  translation(context).download,
                                                   style: TextStyle(
                                                     color: Theme.of(context)
                                                         .colorScheme
@@ -488,7 +502,7 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                               child: Center(
                                                 child: Text(
-                                                  'Download',
+                                                  translation(context).download,
                                                   style: TextStyle(
                                                     color: Theme.of(context)
                                                         .colorScheme
@@ -568,7 +582,7 @@ class _HomePageState extends State<HomePage> {
                                               ),
                                               child: Center(
                                                 child: Text(
-                                                  'Download',
+                                                  translation(context).download,
                                                   style: TextStyle(
                                                     color: Theme.of(context)
                                                         .colorScheme
@@ -593,8 +607,11 @@ class _HomePageState extends State<HomePage> {
                     }
                     if (state is ImageError) {
                       final error = state.error;
+                      if (kDebugMode) {
+                        print(error);
+                      }
                       return Center(
-                        child: Text(error),
+                        child: Text("${translation(context).failed} .${translation(context).noResultFound}"),
                       );
                     }
                     return Container();
@@ -613,7 +630,7 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (BuildContext context) {
         return SimpleDialog(
-          title: const Text('Choose style for the image :'),
+          title: Text('${translation(context).chooseStyle} :'),
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(10.0),
@@ -655,13 +672,12 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Choose Directory :'),
-          content: const Text(
-              'Do you want to Choose Directory to make the app can save images in your Device?'),
+          title: Text('${translation(context).chooseDirectory} :'),
+          content: Text(translation(context).confirmDirectory),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(),
-              child: const Text('No'),
+              child: Text(translation(context).no),
             ),
             TextButton(
               onPressed: () {
@@ -673,7 +689,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                 );
               },
-              child: const Text('Yes'),
+              child: Text(translation(context).yes),
             ),
           ],
         );
