@@ -62,7 +62,8 @@ class _HomePageState extends State<HomePage> {
         await file.writeAsBytes(canvas).whenComplete(() {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text('${translation(context).imageWasSaved} : $filePath'),
+              content:
+                  Text('${translation(context).imageWasSaved} : $filePath'),
               elevation: 10,
             ),
           );
@@ -177,8 +178,10 @@ class _HomePageState extends State<HomePage> {
                           autofocus: false,
                           controller: _textEditingController,
                           decoration: InputDecoration(
-                            hintText: translation(context).putAnythingInYourMind,
-                            labelText: translation(context).putAnythingInYourMind,
+                            hintText:
+                                translation(context).putAnythingInYourMind,
+                            labelText:
+                                translation(context).putAnythingInYourMind,
                             border: const OutlineInputBorder(),
                             suffixIcon: IconButton(
                               onPressed: () {
@@ -370,16 +373,6 @@ class _HomePageState extends State<HomePage> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.height * 0.7,
-                                  child: FadeInImage(
-                                    placeholder: const AssetImage(
-                                        'assets/images/Ai.webp'),
-                                    image: MemoryImage(image),
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: InkWell(
@@ -436,6 +429,16 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                       ),
                                     ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.height * 0.7,
+                                  child: FadeInImage(
+                                    placeholder: const AssetImage(
+                                        'assets/images/Ai.webp'),
+                                    image: MemoryImage(image),
+                                    fit: BoxFit.contain,
                                   ),
                                 ),
                               ],
@@ -451,16 +454,6 @@ class _HomePageState extends State<HomePage> {
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                SizedBox(
-                                  width:
-                                      MediaQuery.of(context).size.height * 0.7,
-                                  child: FadeInImage(
-                                    placeholder: const AssetImage(
-                                        'assets/images/Ai.webp'),
-                                    image: MemoryImage(image),
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
                                 Padding(
                                   padding: const EdgeInsets.all(10),
                                   child: InkWell(
@@ -517,6 +510,16 @@ class _HomePageState extends State<HomePage> {
                                         ),
                                       ),
                                     ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width:
+                                      MediaQuery.of(context).size.height * 0.7,
+                                  child: FadeInImage(
+                                    placeholder: const AssetImage(
+                                        'assets/images/Ai.webp'),
+                                    image: MemoryImage(image),
+                                    fit: BoxFit.contain,
                                   ),
                                 ),
                               ],
@@ -611,7 +614,16 @@ class _HomePageState extends State<HomePage> {
                         print(error);
                       }
                       return Center(
-                        child: Text("${translation(context).failed} .${translation(context).noResultFound}"),
+                        child: Padding(
+                          padding: const EdgeInsets.all(50.0),
+                          child: Text(
+                            "${translation(context).failed} .${translation(context).noResultFound}",
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
                       );
                     }
                     return Container();
