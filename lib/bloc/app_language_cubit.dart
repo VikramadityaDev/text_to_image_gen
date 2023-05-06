@@ -7,7 +7,7 @@ import 'package:text_to_image_gen/utils/app_language.dart';
 part 'app_language_state.dart';
 
 class AppLanguageCubit extends Cubit<AppLanguageState> {
-  AppLanguageCubit(Locale locale) : super(AppLanguageInitial(locale)){
+  AppLanguageCubit(Locale locale) : super(AppLanguageInitial(locale)) {
     loadLanguage();
   }
 

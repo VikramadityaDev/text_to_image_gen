@@ -10,6 +10,7 @@ abstract class AppDirectoryState extends Equatable {
 class AppDirectoryInitial extends AppDirectoryState {
   const AppDirectoryInitial(super.path);
 }
+
 class AppDirectoryUpdated extends AppDirectoryState {
   const AppDirectoryUpdated(super.path);
 }

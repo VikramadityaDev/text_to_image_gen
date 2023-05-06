@@ -7,7 +7,7 @@ import '../utils/strings.dart';
 part 'app_directory_state.dart';
 
 class AppDirectoryCubit extends Cubit<AppDirectoryState> {
-  AppDirectoryCubit(String path) : super(AppDirectoryInitial(path)){
+  AppDirectoryCubit(String path) : super(AppDirectoryInitial(path)) {
     loadPath();
   }
 

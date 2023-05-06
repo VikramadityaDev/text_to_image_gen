@@ -11,6 +11,7 @@ abstract class AppThemeState extends Equatable {
 class AppThemeInitial extends AppThemeState {
   const AppThemeInitial(AppTheme theme) : super(theme);
 }
+
 class AppThemeUpdate extends AppThemeState {
   const AppThemeUpdate(AppTheme theme) : super(theme);
 }

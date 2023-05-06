@@ -61,8 +61,8 @@ TexFusion AI app created by flutter framework and it is a new AI art generation 
         <th>Different Theme</th>
     </tr>
     <tr>
-        <td><img src="screenshots/09.png" width=900/></td>
-        <td><img src="screenshots/10.png" width=300/></td>
+        <td><img src="screenshots/10.png" width=700/></td>
+        <td><img src="screenshots/09.png" width=300/></td>
     </tr>
 </Table>
 

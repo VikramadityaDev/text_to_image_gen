@@ -177,7 +177,8 @@ class _SettingsPageState extends State<SettingsPage> {
                               ),
                               child: CheckboxListTile(
                                 title: Text(language.name),
-                                value: state.locale.languageCode == _languages[index].languageCode,
+                                value: state.locale.languageCode ==
+                                    _languages[index].languageCode,
                                 onChanged: (value) {
                                   _appLanguageCubit
                                       .changeLanguage(language.languageCode);
