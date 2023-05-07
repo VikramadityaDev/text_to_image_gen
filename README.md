@@ -14,12 +14,13 @@ TexFusion AI app created by flutter framework and it is a new AI art generation 
 - Added 12 Styles including 3D render.
 - Download Image
 - Different Theme And Modes
+- Multi Languages
 - Custom Font
 - Lightweight & user-friendly
-- Cross Platform (Android , Linux , Windows and MacOs)
 
 ## How it work !
 - Make sure you enter more descriptive prompt. As this is kind of new api, it produces HD image with less descriptive prompt. So, make sure you describe the image correctly that you want as output.
+- The prompt in English only
 
   Fork the repo 🔥 and don't forget to star the repo 🌟
 
@@ -48,10 +49,20 @@ TexFusion AI app created by flutter framework and it is a new AI art generation 
     <tr>                   
         <th>Dark Mode in Desktop</th>
         <th>Different Style</th>
+        <th>Arabic Language</th>
     </tr>
     <tr>
         <td><img src="screenshots/02.png" width=600/></td>
         <td><img src="screenshots/06.png" width=300/></td>
+        <td><img src="screenshots/11.png" width=300/></td>
+    </tr>
+        <tr>                   
+        <th>Cross Platform</th>
+        <th>Different Theme</th>
+    </tr>
+    <tr>
+        <td><img src="screenshots/10.png" width=700/></td>
+        <td><img src="screenshots/09.png" width=300/></td>
     </tr>
 </Table>
 

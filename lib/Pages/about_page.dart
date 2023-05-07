@@ -143,7 +143,7 @@ class AboutPage extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () async {
                     final Uri url =
-                    Uri.parse('https://github.com/VikramadityaDev/');
+                        Uri.parse('https://github.com/VikramadityaDev/');
                     if (!await launchUrl(url,
                         mode: LaunchMode.externalApplication)) {
                       throw Exception('Could not launch $url');
@@ -157,7 +157,7 @@ class AboutPage extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () async {
                     final Uri url =
-                    Uri.parse('https://telegram.me/Aditya@1190/');
+                        Uri.parse('https://telegram.me/Aditya@1190/');
                     if (!await launchUrl(url,
                         mode: LaunchMode.externalApplication)) {
                       throw Exception('Could not launch $url');

@@ -26,5 +26,4 @@ class AppThemeCubit extends Cubit<AppThemeState> {
     await ThemeSharedPreferences.setThemeName(appThemes[newTheme]!);
     emit(AppThemeUpdate(newTheme));
   }
-
 }

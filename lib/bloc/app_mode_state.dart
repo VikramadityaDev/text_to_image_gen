@@ -5,14 +5,14 @@ abstract class AppModeState extends Equatable {
 
   const AppModeState(this.mode);
 
-
   @override
   List<Object?> get props => [mode];
 }
 
 class AppModeInitial extends AppModeState {
-  const  AppModeInitial(super.mode);
+  const AppModeInitial(super.mode);
 }
+
 class AppModeUpdate extends AppModeState {
   const AppModeUpdate(super.mode);
 }

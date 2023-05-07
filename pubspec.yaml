@@ -27,6 +27,9 @@ dependencies:
   device_info_plus: ^8.2.2
   flutter_native_splash: ^2.2.19
   flutter_launcher_icons: ^0.13.1
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:
@@ -34,7 +37,7 @@ dev_dependencies:
   flutter_lints: ^2.0.1
 
 flutter:
-
+  generate: true
   uses-material-design: true
 
   # To add assets to your application, add an assets section, like this:
