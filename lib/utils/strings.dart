@@ -21,4 +21,5 @@ const String pathHint = 'Click to choose folder';
 const String app = 'TexFusion';
 
 const String englishLanguage = 'en';
+const String hindiLanguage = 'hi';
 const String arabicLanguage = 'ar';

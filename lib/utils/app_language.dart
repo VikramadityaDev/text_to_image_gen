@@ -11,6 +11,8 @@ class LanguageSharedPreferences {
     switch (languageCode) {
       case englishLanguage:
         return const Locale(englishLanguage, 'US');
+      case hindiLanguage:
+        return const Locale(hindiLanguage, 'IN');
       case arabicLanguage:
         return const Locale(arabicLanguage, 'DZ');
       default:
