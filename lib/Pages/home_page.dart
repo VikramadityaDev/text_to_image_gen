@@ -262,8 +262,8 @@ class _HomePageState extends State<HomePage> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SizedBox(
-                              height: 300,
-                              width: 300,
+                              height: 350,
+                              width: 350,
                               child: Padding(
                                 padding: const EdgeInsets.all(100),
                                 child: Lottie.asset(
@@ -296,7 +296,7 @@ class _HomePageState extends State<HomePage> {
                                       MediaQuery.of(context).size.width * 0.9,
                                   child: FadeInImage(
                                     placeholder: const AssetImage(
-                                        'assets/images/Ai.webp'),
+                                        'assets/images/image_found.png'),
                                     image: MemoryImage(image),
                                     fit: BoxFit.contain,
                                   ),
@@ -436,7 +436,7 @@ class _HomePageState extends State<HomePage> {
                                       MediaQuery.of(context).size.height * 0.7,
                                   child: FadeInImage(
                                     placeholder: const AssetImage(
-                                        'assets/images/Ai.webp'),
+                                        'assets/images/image_found.png'),
                                     image: MemoryImage(image),
                                     fit: BoxFit.contain,
                                   ),
@@ -517,7 +517,7 @@ class _HomePageState extends State<HomePage> {
                                       MediaQuery.of(context).size.height * 0.7,
                                   child: FadeInImage(
                                     placeholder: const AssetImage(
-                                        'assets/images/Ai.webp'),
+                                        'assets/images/image_found.png'),
                                     image: MemoryImage(image),
                                     fit: BoxFit.contain,
                                   ),
@@ -535,7 +535,7 @@ class _HomePageState extends State<HomePage> {
                                       MediaQuery.of(context).size.width * 0.9,
                                   child: FadeInImage(
                                     placeholder: const AssetImage(
-                                        'assets/images/Ai.webp'),
+                                        'assets/images/image_found.png'),
                                     image: MemoryImage(image),
                                     fit: BoxFit.contain,
                                   ),
@@ -617,7 +617,7 @@ class _HomePageState extends State<HomePage> {
                         child: Padding(
                           padding: const EdgeInsets.all(50.0),
                           child: Text(
-                            "${translation(context).failed} .${translation(context).noResultFound}",
+                            "${translation(context).failed}. ${translation(context).noResultFound}",
                             style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 20,
