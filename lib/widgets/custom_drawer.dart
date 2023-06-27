@@ -146,7 +146,7 @@ class CustomDrawer extends StatelessWidget {
               child: Align(
                 alignment: Alignment.bottomCenter,
                 child: Text(
-                  'v1.0.5',
+                  'v1.0.6',
                   style: TextStyle(
                       fontSize: 16,
                       color: Theme.of(context).colorScheme.secondary,

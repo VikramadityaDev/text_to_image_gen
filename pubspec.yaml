@@ -12,7 +12,7 @@ dependencies:
   flutter:
     sdk: flutter
 
-  brain_fusion: ^0.0.8
+  brain_fusion: ^0.0.9
   lottie: ^2.3.2
   url_launcher: ^6.1.10
   sentry_flutter: ^7.5.1
@@ -29,7 +29,8 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   flutter_localizations:
     sdk: flutter
-  intl: ^0.17.0
+  intl: ^0.18.0
+  onesignal_flutter: ^3.5.1
 
 dev_dependencies:
   flutter_test:
