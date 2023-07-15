@@ -10,10 +10,10 @@ class ImageCubit extends Cubit<ImageState> {
   ImageCubit() : super(ImageInitial());
   final AI _ai = AI();
 
-  Future<void> generate(String query, AIStyle style) async {
+  Future<void> generate(String query, AIStyle style, Resolution resolution) async {
     emit(ImageLoading());
     try {
-      Uint8List image = await _ai.runAI(query, style);
+      Uint8List image = await _ai.runAI(query, style, resolution);
       emit(ImageLoaded(image: image));
     } catch (_) {
       emit(const ImageError(error: 'There is error . Try Again Later'));
