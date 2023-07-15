@@ -33,9 +33,6 @@ class _HomePageState extends State<HomePage> {
     AIStyle.noStyle: 'No style',
     AIStyle.render3D: '3D render',
     AIStyle.anime: 'Anime',
-    AIStyle.islamic: 'Islamic',
-    AIStyle.iconography: 'Icon Graphy',
-    AIStyle.mosaic: 'Mosaic',
     AIStyle.moreDetails: 'More Detailed',
     AIStyle.cyberPunk: 'CyberPunk',
     AIStyle.cartoon: 'Cartoon',
@@ -660,7 +657,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                     ),
                     onPressed: () {
-                      _imageCubit.generate(query, entry.key);
+                      _imageCubit.generate(query, entry.key, Resolution.r16x9);
                       Navigator.pop(context);
                     },
                     child: Text(
