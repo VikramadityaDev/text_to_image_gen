@@ -4,7 +4,7 @@ TexFusion AI app created by flutter framework and it is a new AI art generation 
 
 <Br>
 <p align="left">
-<a href="https://github.com/VikramadityaDev/text_to_image_gen/releases/download/v1.0.6/app-armeabi-v7a-release.apk"><img src="https://img.shields.io/github/downloads/VikramadityaDev/text_to_image_gen/total?color=g&label=Downloads&logo=android&logoColor=white&style=for-the-badge"></a>
+<a href="https://github.com/VikramadityaDev/text_to_image_gen/releases/download/v1.0.7/app-armeabi-v7a-release.apk"><img src="https://img.shields.io/github/downloads/VikramadityaDev/text_to_image_gen/total?color=g&label=Downloads&logo=android&logoColor=white&style=for-the-badge"></a>
 </p>
 
 ## Features
